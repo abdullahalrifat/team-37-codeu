@@ -191,4 +191,31 @@ public class Datastore {
 	  return average;
 	  
 	}
+	
+	
+	/**
+   * Gets most active user(s).
+   *
+   * @return a list of the name(s) of the most active user(s), or empty list if there's no user.
+   */
+  
+  public String getMostActiveUser() {
+	  
+	  Set<String> users = getUsers();
+	  String mostActiveUser = new String();
+	  int messages = 0;
+	  
+	  for(String user : users) {
+		int userMessagesCount = getMessages(user).size();
+		if (userMessagesCount > messages) {
+			messages = userMessagesCount;
+			mostActiveUser = user;
+		}
+		else if (userMessagesCount != 0 && userMessagesCount == messages)
+			mostActiveUser = mostActiveUser + ", " + user;
+	  }
+	  
+	  return mostActiveUser;
+		  
+	}
 }
