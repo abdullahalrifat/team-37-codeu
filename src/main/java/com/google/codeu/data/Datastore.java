@@ -85,39 +85,13 @@ public class Datastore {
     return messages;
   }
 
-<<<<<<< HEAD
+
   /**
    * Gets messages posted by a specific user.
    *
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
-
-  public Set<String> getUsers(){
-=======
-public Set<String> getUsers(){
->>>>>>> 07e6de3a99fddc18c5a7f4adf21c983521e0cc83
-
-  Set<String> users = new HashSet<>();
-
-  Query query = new Query("Message");
-
-  PreparedQuery results = datastore.prepare(query);
-
-  for(Entity entity : results.asIterable()) {
-
-    users.add((String) entity.getProperty("user"));
-
-  }
-
-  return users;
-
-<<<<<<< HEAD
-=======
-}
-
->>>>>>> 07e6de3a99fddc18c5a7f4adf21c983521e0cc83
-}
 
   public List<Message> timeline() {
     List<Message> messages = new ArrayList<>();
@@ -148,10 +122,27 @@ public Set<String> getUsers(){
     return messages;
   }
   
-  	public int getTotalMessageCount() {
-		Query query = new Query("Message");
-		PreparedQuery results = datastore.prepare(query);
-		return results.countEntities(FetchOptions.Builder.withLimit(1000));
+  public int getTotalMessageCount() {
+	Query query = new Query("Message");
+	PreparedQuery results = datastore.prepare(query);
+	return results.countEntities(FetchOptions.Builder.withLimit(1000));
+	}
+	
+	public Set<String> getUsers(){
+
+	  Set<String> users = new HashSet<>();
+
+	  Query query = new Query("Message");
+
+	  PreparedQuery results = datastore.prepare(query);
+
+	  for(Entity entity : results.asIterable()) {
+
+	    users.add((String) entity.getProperty("user"));
+
+	  }
+
+	  return users;
 
 	}
 	
