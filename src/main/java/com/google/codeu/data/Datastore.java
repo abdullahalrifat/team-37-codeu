@@ -27,6 +27,8 @@ import com.google.appengine.api.datastore.FetchOptions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Set;
+import java.util.HashSet;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
@@ -53,6 +55,8 @@ public class Datastore {
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
+  
+
   public List<Message> getMessages(String user) {
     List<Message> messages = new ArrayList<>();
 
@@ -81,12 +85,14 @@ public class Datastore {
     return messages;
   }
 
+
   /**
    * Gets messages posted by a specific user.
    *
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
+
   public List<Message> timeline() {
     List<Message> messages = new ArrayList<>();
 
@@ -116,10 +122,27 @@ public class Datastore {
     return messages;
   }
   
-  	public int getTotalMessageCount() {
-		Query query = new Query("Message");
-		PreparedQuery results = datastore.prepare(query);
-		return results.countEntities(FetchOptions.Builder.withLimit(1000));
+  public int getTotalMessageCount() {
+	Query query = new Query("Message");
+	PreparedQuery results = datastore.prepare(query);
+	return results.countEntities(FetchOptions.Builder.withLimit(1000));
+	}
+	
+	public Set<String> getUsers(){
+
+	  Set<String> users = new HashSet<>();
+
+	  Query query = new Query("Message");
+
+	  PreparedQuery results = datastore.prepare(query);
+
+	  for(Entity entity : results.asIterable()) {
+
+	    users.add((String) entity.getProperty("user"));
+
+	  }
+
+	  return users;
 
 	}
 	
