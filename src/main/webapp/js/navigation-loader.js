@@ -37,6 +37,10 @@ function addLoginOrLogoutLinkToNavigation() {
           navigationElement.appendChild(createListItem(createLink(
                 '/stats.html', 'Page Stats')));  
 
+            navigationElement.appendChild(
+                createListItem(createLink(
+                '/timeline.html', 'Timeline')));
+
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
         } else {
