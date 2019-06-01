@@ -55,6 +55,8 @@ public class Datastore {
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
+  
+
   public List<Message> getMessages(String user) {
     List<Message> messages = new ArrayList<>();
 
@@ -83,6 +85,7 @@ public class Datastore {
     return messages;
   }
 
+<<<<<<< HEAD
   /**
    * Gets messages posted by a specific user.
    *
@@ -91,6 +94,9 @@ public class Datastore {
    */
 
   public Set<String> getUsers(){
+=======
+public Set<String> getUsers(){
+>>>>>>> 07e6de3a99fddc18c5a7f4adf21c983521e0cc83
 
   Set<String> users = new HashSet<>();
 
@@ -106,6 +112,11 @@ public class Datastore {
 
   return users;
 
+<<<<<<< HEAD
+=======
+}
+
+>>>>>>> 07e6de3a99fddc18c5a7f4adf21c983521e0cc83
 }
 
   public List<Message> timeline() {
