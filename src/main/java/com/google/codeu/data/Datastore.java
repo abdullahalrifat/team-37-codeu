@@ -27,6 +27,8 @@ import com.google.appengine.api.datastore.FetchOptions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Set;
+import java.util.HashSet;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
@@ -87,6 +89,25 @@ public class Datastore {
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
+
+  public Set<String> getUsers(){
+
+  Set<String> users = new HashSet<>();
+
+  Query query = new Query("Message");
+
+  PreparedQuery results = datastore.prepare(query);
+
+  for(Entity entity : results.asIterable()) {
+
+    users.add((String) entity.getProperty("user"));
+
+  }
+
+  return users;
+
+}
+
   public List<Message> timeline() {
     List<Message> messages = new ArrayList<>();
 
