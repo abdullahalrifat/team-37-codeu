@@ -16,6 +16,12 @@
 
         const messageCountElement = buildStatElement('Message count: ' + stats.messageCount);
         statsContainer.appendChild(messageCountElement);
+
+        const averageMessageLengthElement = buildStatElement('Average Message Length: ' + stats.averageMessageLength);
+        statsContainer.appendChild(averageMessageLengthElement);
+		
+		const userCountElement = buildStatElement('User count: ' + stats.userCount);
+        statsContainer.appendChild(userCountElement);
       });
     }
 
