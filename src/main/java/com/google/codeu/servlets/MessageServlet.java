@@ -94,7 +94,6 @@ public class MessageServlet extends HttpServlet {
 	// youtube videos
 	
 	if (userText.contains("youtube")) {
-		
 		regex = "(http)(s?://www\\.youtube\\.com\\/watch\\?v=)([a-zA-Z0-9]+)";
 		replacement = "<iframe width=\"560\" height=\"315\" src=\"https://www\\.youtube\\.com\\/embed\\/$3\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";		
 	}
@@ -102,8 +101,8 @@ public class MessageServlet extends HttpServlet {
 	// images and gifs
 	
 	else {
-		regex = "((http)s?://\\S+\\.(png|jpg|gif|jpeg|svg))";
-		replacement = "<img src=\"$1\" />";
+		regex = "\\!?\\[?([a-zA-Z0-9]+)?\\]?((http)s?://\\S+\\.(png|jpg|gif|jpeg|svg))";
+		replacement = "<figure><img src=\"$2\"><figcaption>$1</figcaption></figure>";
 	}
 	
 	return userText.replaceAll(regex, replacement);
