@@ -60,16 +60,29 @@ limitations under the License.
       <artifactId>google-cloud-datastore</artifactId>
       <version>1.52.0</version>
     </dependency>
+		
+	<dependency>
+		<groupId>commons-validator</groupId>
+		<artifactId>commons-validator</artifactId>
+		<version>1.6</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.9</version>
+	</dependency>
 
   </dependencies>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>com.google.appengine</groupId>
-        <artifactId>appengine-maven-plugin</artifactId>
-        <version>1.9.59</version>
-      </plugin>
+	  <plugin>
+         <groupId>com.google.appengine</groupId>
+         <artifactId>appengine-maven-plugin</artifactId>
+         <version>1.9.59</version>
+	  </plugin>
+	  
     </plugins>
   </build>
 </project>
