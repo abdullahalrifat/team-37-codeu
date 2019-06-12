@@ -92,34 +92,28 @@ public class MessageServlet extends HttpServlet {
 	String regex =  new String();
 	String replacement = new String();
 	
-	// youtube videos
+	// youtube videos. validity is checked in the regex
 	
 	if (userText.contains("youtube")) {
-		regex = "(http)(s?://www\\.youtube\\.com\\/watch\\?v=)([a-zA-Z0-9]+)";
-		replacement = "<iframe width=\"560\" height=\"315\" src=\"https://www\\.youtube\\.com\\/embed\\/$3\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";		
+		regex = "(http)(s?:\\/\\/www\\.youtube\\.com\\/watch\\?v=)([a-zA-Z0-9]+)";
+		replacement = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/$3\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";		
 	}
 	
 	// images and gifs
 	
 	else {
-		regex = "\\!?\\[?([a-zA-Z0-9]+)?\\]?((http)s?://\\S+\\.(png|jpg|gif|jpeg|svg))";
-		replacement = "<figure><img src=\"$2\"><figcaption>$1</figcaption></figure>";
-	}
-	
-		  
-	if (urlValidator(replacement))	
-		return userText.replaceAll(regex, replacement);
-	
-	 else	{
-		 System.out.print("\nInvaluid url\n");
-		 return userText.replaceAll(regex, replacement);
-   }
-  
+		regex = "(\\!\\[([A-Za-z0-9]+[.?!,\"\'A-Za-z0-9\\s]*)\\])?(https?://[a-zA-Z0-9]+\\S*\\.(png|jpg|gif|jpeg|svg))";
+		replacement = "<figure><img src=\"$3\"><figcaption>$2</figcaption></figure>";
+	}		
+		
+	return userText.replaceAll(regex, replacement);
+ 
  }
   
-   public boolean urlValidator (String url) {
+   // public boolean urlValidator (String url) {
 
-	 UrlValidator urlValidator = new UrlValidator();
-	 return urlValidator.isValid(url);
-  }
+	 // UrlValidator urlValidator = new UrlValidator();
+	 // return urlValidator.isValid(url);
+  // }
+
 }
