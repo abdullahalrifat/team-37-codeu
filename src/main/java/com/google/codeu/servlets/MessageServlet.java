@@ -77,9 +77,34 @@ public class MessageServlet extends HttpServlet {
 
     String user = userService.getCurrentUser().getEmail();
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+	
+	String regex =  new String();
+	String replacement = new String();
+	String textReplaced = new String();
 
-    Message message = new Message(user, text);
-    datastore.storeMessage(message);
+    //Message message = new Message(user, text);
+   //datastore.storeMessage(message);
+	
+	 String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+	if (userText.contains("youtube")) {
+		//textReplaced = userText; 
+		
+		regex = "(http)(s?://www\\.youtube\\.com\\/watch\\?v=)([a-zA-Z0-9]+)";
+		//regex = "(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\-_]+)";
+		replacement = "<iframe width=\"560\" height=\"315\" src=\"https://www\\.youtube\\.com\\/embed\\/$3\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
+ 		
+		textReplaced = userText.replaceAll(regex, replacement);   			
+	}
+	
+	else {
+		regex = "((http)s?://\\S+\\.(png|jpg|gif|jpeg|svg))";
+		replacement = "<img src=\"$3\" />";
+ 		
+		textReplaced = userText.replaceAll(regex, replacement);   
+	}
+	
+	Message message = new Message(user, textReplaced);
+	datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);
   }
