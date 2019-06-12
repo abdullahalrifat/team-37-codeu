@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.apache.commons.validator.routines.UrlValidator;
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
@@ -105,7 +106,20 @@ public class MessageServlet extends HttpServlet {
 		replacement = "<figure><img src=\"$2\"><figcaption>$1</figcaption></figure>";
 	}
 	
-	return userText.replaceAll(regex, replacement);
-  }
+		  
+	if (urlValidator(replacement))	
+		return userText.replaceAll(regex, replacement);
+	
+	 else	{
+		 System.out.print("\nInvaluid url\n");
+		 return userText.replaceAll(regex, replacement);
+   }
   
+ }
+  
+   public boolean urlValidator (String url) {
+
+	 UrlValidator urlValidator = new UrlValidator();
+	 return urlValidator.isValid(url);
+  }
 }
