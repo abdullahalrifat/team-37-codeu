@@ -19,6 +19,7 @@ package com.google.codeu.servlets;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Mates;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -30,9 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
+
 /** Handles fetching and saving {@link Message} instances. */
-@WebServlet("/timeline")
-public class TimeLineServlet extends HttpServlet {
+@WebServlet("/travelMates")
+public class TravelMates extends HttpServlet {
 
     private Datastore datastore;
 
@@ -58,12 +60,39 @@ public class TimeLineServlet extends HttpServlet {
             return;
         }*/
 
-        List<Message> messages = datastore.timeline();
+        List<Mates> mates = datastore.getAllMates();
+        System.out.println("get method");
+        System.out.println(mates.get(0).getTimestamp());
         Gson gson = new Gson();
-        String json = gson.toJson(messages);
+        String json = gson.toJson(mates);
 
         response.getWriter().println(json);
     }
+
+    /** Stores a new {@link Message}. */
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        UserService userService = UserServiceFactory.getUserService();
+        if (!userService.isUserLoggedIn()) {
+            response.sendRedirect("/index.html");
+            return;
+        }
+
+        String user = userService.getCurrentUser().getEmail();
+        double alat = Double.parseDouble(request.getParameter("alat"));
+        double along = Double.parseDouble(request.getParameter("along"));
+
+
+        System.out.println(request.getParameter("alat"));
+        System.out.println(request.getParameter("along"));
+
+        Mates mate = new Mates(user, alat,along);
+        datastore.storeMates(mate);
+
+        response.sendRedirect("/user-page.html?user=" + user);
+    }
+
 
 
 }

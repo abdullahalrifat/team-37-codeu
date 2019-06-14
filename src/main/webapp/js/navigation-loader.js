@@ -49,6 +49,10 @@ function addLoginOrLogoutLinkToNavigation() {
 
             navigationElement.appendChild(
                 createListItem(createLink(
+                    '/travelMates.html', 'Mates')));
+
+            navigationElement.appendChild(
+                createListItem(createLink(
                     '/aboutus.html', 'About')));
 
           navigationElement.appendChild(
