@@ -122,8 +122,92 @@ public class Datastore {
 
     return messages;
   }
-  
-	
+
+    /**
+     * Gets specific mate details
+     *
+     * @return a list of messages posted by the user, or empty list if user has never posted a
+     *     message. List is sorted by time descending.
+     */
+
+    public List<Mates> getMate(String user) {
+        List<Mates> mates = new ArrayList<>();
+
+        Query query =
+                new Query("Mates")
+                        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity : results.asIterable()) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+                double alat = (Double) entity.getProperty("alat");
+                double along = (Double) entity.getProperty("along");
+                long timestamp = (long) entity.getProperty("timestamp");
+
+                Mates mate = new Mates(id, user, alat,along, timestamp);
+                mates.add(mate);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
+        }
+
+        return mates;
+    }
+
+
+    /**
+     * Gets all mates details
+     *
+     * @return a list of messages posted by all users, or empty list if no user has never posted a
+     *     message. List is sorted by time descending.
+     */
+
+    public List<Mates> getAllMates() {
+        List<Mates> mates = new ArrayList<>();
+
+        Query query =
+                new Query("Mates")
+                        //.setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity : results.asIterable()) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+                //String text = (String) entity.getProperty("text");
+                String user = (String) entity.getProperty("user");
+                double alat = (Double) entity.getProperty("alat");
+                double along = (Double) entity.getProperty("along");
+                long timestamp = (long) entity.getProperty("timestamp");
+
+                Mates mate = new Mates(id, user, alat,along, timestamp);
+                mates.add(mate);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
+        }
+
+        return mates;
+    }
+
+    /** Stores the Mates in Datastore. */
+    public void storeMates(Mates mate) {
+        Entity messageEntity = new Entity("Mates", mate.getId().toString());
+        messageEntity.setProperty("user", mate.getUser());
+        messageEntity.setProperty("alat", mate.getLat());
+        messageEntity.setProperty("along", mate.getLong());
+        messageEntity.setProperty("timestamp", mate.getTimestamp());
+
+        datastore.put(messageEntity);
+    }
     /**
    * Gets all users.
    *

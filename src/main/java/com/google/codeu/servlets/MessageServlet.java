@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
-import org.apache.commons.validator.routines.UrlValidator;
+
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
