@@ -80,13 +80,20 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    // String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
-    TextProcessor processor = BBProcessorFactory.getInstance().create();
-    String input= processor.process( text ) ;
+    // TextProcessor processor = BBProcessorFactory.getInstance().create();
+    // String input= processor.process( text ) ;
 
-    Message message = new Message(user, input);
-    datastore.storeMessage(message);
+    // Message message = new Message(user, input);
+    // datastore.storeMessage(message);
+
+  String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+  TextProcessor processor = BBProcessorFactory.getInstance().create();
+  String input= processor.process( text ) ;
+
+  Message message = new Message(user, input);
+  datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);
   }
