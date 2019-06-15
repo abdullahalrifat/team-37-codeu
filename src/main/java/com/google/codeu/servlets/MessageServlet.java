@@ -29,6 +29,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.kefirsf.bb.BBProcessorFactory;
+import org.kefirsf.bb.TextProcessor;
+
+//import org.primeframework.transformer.service.BBCodeParser;
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
@@ -78,7 +82,10 @@ public class MessageServlet extends HttpServlet {
     String user = userService.getCurrentUser().getEmail();
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
-    Message message = new Message(user, text);
+    TextProcessor processor = BBProcessorFactory.getInstance().create();
+    String input= processor.process( text ) ;
+
+    Message message = new Message(user, input);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);

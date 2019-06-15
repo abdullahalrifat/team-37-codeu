@@ -42,6 +42,8 @@ public class Message {
     this.timestamp = timestamp;
   }
 
+
+
   public UUID getId() {
     return id;
   }
