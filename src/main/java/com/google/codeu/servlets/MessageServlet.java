@@ -81,23 +81,6 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-<<<<<<< HEAD
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-
-    TextProcessor processor = BBProcessorFactory.getInstance().create();
-    String input= processor.process( text ) ;
-
-    Message message = new Message(user, input);
-    datastore.storeMessage(message);
-  //testing
-
-  // String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-  // TextProcessor processor = BBProcessorFactory.getInstance().create();
-  // String input= processor.process( text ) ;
-
-  // Message message = new Message(user, input);
-  // datastore.storeMessage(message);
-
 	String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
 	String textReplaced = replaceUserText(userText);
