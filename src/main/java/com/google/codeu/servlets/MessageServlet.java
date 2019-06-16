@@ -34,6 +34,7 @@ import org.kefirsf.bb.TextProcessor;
 
 //import org.primeframework.transformer.service.BBCodeParser;
 
+
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
 public class MessageServlet extends HttpServlet {
@@ -80,6 +81,7 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
+<<<<<<< HEAD
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
     TextProcessor processor = BBProcessorFactory.getInstance().create();
@@ -96,6 +98,44 @@ public class MessageServlet extends HttpServlet {
   // Message message = new Message(user, input);
   // datastore.storeMessage(message);
 
+	String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+
+	String textReplaced = replaceUserText(userText);
+
+	Message message = new Message(user, textReplaced);
+	datastore.storeMessage(message);
+
+
     response.sendRedirect("/user-page.html?user=" + user);
   }
+
+  public String replaceUserText(String userText) {
+
+	String regex =  new String();
+	String replacement = new String();
+
+	// youtube videos. validity is checked in the regex
+
+	if (userText.contains("youtube")) {
+		regex = "(http)(s?:\\/\\/www\\.youtube\\.com\\/watch\\?v=)([a-zA-Z0-9]+)";
+		replacement = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/$3\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
+	}
+
+	// images and gifs
+
+	else {
+		regex = "(\\!\\[([A-Za-z0-9]+[.?!,\"\'A-Za-z0-9\\s]*)\\])?(https?://[a-zA-Z0-9]+\\S*\\.(png|jpg|gif|jpeg|svg))";
+		replacement = "<figure><img src=\"$3\"><figcaption>$2</figcaption></figure>";
+	}
+
+	return userText.replaceAll(regex, replacement);
+
+ }
+
+   // public boolean urlValidator (String url) {
+
+	 // UrlValidator urlValidator = new UrlValidator();
+	 // return urlValidator.isValid(url);
+  // }
+
 }

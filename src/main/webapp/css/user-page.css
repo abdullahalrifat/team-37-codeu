@@ -40,6 +40,15 @@
   margin: 5px;
 }
 
+/* Give the <figure> tag a block display so it shows up 
+   below text instead of beside it. And prevent large
+   image from displaying outside the message container. */
+.message-body figure {
+  display: block;
+  margin-top: 25px;
+  max-width: 50%;
+}
+
 /* Use this to hide certain elements like forms if the
    user is not logged in or viewing their own page. */
 .hidden {

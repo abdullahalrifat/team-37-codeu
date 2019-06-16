@@ -31,19 +31,45 @@ function addLoginOrLogoutLinkToNavigation() {
       })
       .then((loginStatus) => {
         if (loginStatus.isLoggedIn) {
-          navigationElement.appendChild(createListItem(createLink(
+          navigationElement.appendChild(
+              createListItem(createLink(
               '/user-page.html?user=' + loginStatus.username, 'Your Page')));
             
-          navigationElement.appendChild(createListItem(createLink(
-                '/stats.html', 'Page Stats')));  
+          navigationElement.appendChild(
+              createListItem(createLink(
+                '/stats.html', 'Page Stats')));
+
+            navigationElement.appendChild(
+                createListItem(createLink(
+                '/community.html', 'Community')));
 
             navigationElement.appendChild(
                 createListItem(createLink(
                 '/timeline.html', 'Timeline')));
 
+            navigationElement.appendChild(
+                createListItem(createLink(
+                    '/travelMates.html', 'Mates')));
+
+            navigationElement.appendChild(
+                createListItem(createLink(
+                    '/aboutus.html', 'About')));
+
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
         } else {
+            navigationElement.appendChild(
+                createListItem(createLink('#services', 'Services')));
+
+            navigationElement.appendChild(
+                createListItem(createLink('#portfolio', 'Portfolio')));
+
+            navigationElement.appendChild(
+                createListItem(createLink('#team', 'Team')));
+
+            navigationElement.appendChild(
+                createListItem(createLink('#contact', 'Contact')));
+
           navigationElement.appendChild(
               createListItem(createLink('/login', 'Login')));
         }

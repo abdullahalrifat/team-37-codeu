@@ -13,18 +13,26 @@
       }).then((stats) => {
         const statsContainer = document.getElementById('stats-container');
         statsContainer.innerHTML = '';
-
+		
         const messageCountElement = buildStatElement('Message count: ' + stats.messageCount);
         statsContainer.appendChild(messageCountElement);
+		
+        const averageMessageLengthElement = buildStatElement('Average Message Length: ' + stats.averageMessageLength);
+        statsContainer.appendChild(averageMessageLengthElement);
+		
+		const userCountElement = buildStatElement('User count: ' + stats.userCount);
+        statsContainer.appendChild(userCountElement);
+		
+		const mostActiveUserElement = buildStatElement('Most Active User: ' + stats.mostActiveUser);
+		statsContainer.appendChild(mostActiveUserElement);
+	
       });
     }
-
     function buildStatElement(statString){
      const statElement = document.createElement('p');
      statElement.appendChild(document.createTextNode(statString));
      return statElement;
     }
-
     // Fetch data and populate the UI of the page.
     function buildUI(){
      fetchStats();
@@ -38,4 +46,5 @@
   <div id="stats-container">Loading...</div>
 </div>
 </body>
+</html>
 </html>

@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.Set;
 import java.util.HashSet;
+import java.io.*;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
@@ -48,6 +49,7 @@ public class Datastore {
 
     datastore.put(messageEntity);
   }
+  
 
   /**
    * Gets messages posted by a specific user.
@@ -55,7 +57,6 @@ public class Datastore {
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
-  
 
   public List<Message> getMessages(String user) {
     List<Message> messages = new ArrayList<>();
@@ -84,12 +85,12 @@ public class Datastore {
 
     return messages;
   }
-
-
+  
+  
   /**
-   * Gets messages posted by a specific user.
+   * Gets messages posted by all users.
    *
-   * @return a list of messages posted by the user, or empty list if user has never posted a
+   * @return a list of messages posted by all users, or empty list if no user has never posted a
    *     message. List is sorted by time descending.
    */
 
@@ -121,29 +122,184 @@ public class Datastore {
 
     return messages;
   }
-  
-  public int getTotalMessageCount() {
-	Query query = new Query("Message");
-	PreparedQuery results = datastore.prepare(query);
-	return results.countEntities(FetchOptions.Builder.withLimit(1000));
-	}
+
+    /**
+     * Gets specific mate details
+     *
+     * @return a list of messages posted by the user, or empty list if user has never posted a
+     *     message. List is sorted by time descending.
+     */
+
+    public List<Mates> getMate(String user) {
+        List<Mates> mates = new ArrayList<>();
+
+        Query query =
+                new Query("Mates")
+                        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity : results.asIterable()) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+                double alat = (Double) entity.getProperty("alat");
+                double along = (Double) entity.getProperty("along");
+                long timestamp = (long) entity.getProperty("timestamp");
+
+                Mates mate = new Mates(id, user, alat,along, timestamp);
+                mates.add(mate);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
+        }
+
+        return mates;
+    }
+
+
+    /**
+     * Gets all mates details
+     *
+     * @return a list of messages posted by all users, or empty list if no user has never posted a
+     *     message. List is sorted by time descending.
+     */
+
+    public List<Mates> getAllMates() {
+        List<Mates> mates = new ArrayList<>();
+
+        Query query =
+                new Query("Mates")
+                        //.setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity : results.asIterable()) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+                //String text = (String) entity.getProperty("text");
+                String user = (String) entity.getProperty("user");
+                double alat = (Double) entity.getProperty("alat");
+                double along = (Double) entity.getProperty("along");
+                long timestamp = (long) entity.getProperty("timestamp");
+
+                Mates mate = new Mates(id, user, alat,along, timestamp);
+                mates.add(mate);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
+        }
+
+        return mates;
+    }
+
+    /** Stores the Mates in Datastore. */
+    public void storeMates(Mates mate) {
+        Entity messageEntity = new Entity("Mates", mate.getId().toString());
+        messageEntity.setProperty("user", mate.getUser());
+        messageEntity.setProperty("alat", mate.getLat());
+        messageEntity.setProperty("along", mate.getLong());
+        messageEntity.setProperty("timestamp", mate.getTimestamp());
+
+        datastore.put(messageEntity);
+    }
+    /**
+   * Gets all users.
+   *
+   * @return a set of users, or an empty set if there is no user.
+   */
 	
 	public Set<String> getUsers(){
 
 	  Set<String> users = new HashSet<>();
 
 	  Query query = new Query("Message");
-
 	  PreparedQuery results = datastore.prepare(query);
 
 	  for(Entity entity : results.asIterable()) {
-
 	    users.add((String) entity.getProperty("user"));
-
 	  }
 
 	  return users;
-
 	}
 	
+	
+	/**
+   * Gets total number of messages posted by all users.
+   *
+   * @return the number of total messages posted by all users, or 0 if no user has never posted a message.
+   */
+   
+  public int getTotalMessageCount() {
+  
+	  Query query = new Query("Message");
+	  PreparedQuery results = datastore.prepare(query);
+	
+	  return results.countEntities(FetchOptions.Builder.withLimit(1000));
+	}
+	
+	
+	/**
+   * Gets total number of users.
+   *
+   * @return the number of total users, or 0 if there's no user yet.
+   */
+  
+  public int getTotalUserCount() {
+	  return getUsers().size();
+	}
+	
+	
+	/**
+   * Gets average length of messages.
+   *
+   * @return the average message length, or 0 if no user has never posted a message.
+   */
+  
+  public int getAverageMessageLength() {
+	  
+	  Query query = new Query("Message");
+	  PreparedQuery results = datastore.prepare(query);
+	  
+	  int length = 0;
+	  
+	  for(Entity entity : results.asIterable())
+	    length +=  ((String) entity.getProperty("text")).length();
+	  
+	  int average = (int) length / getTotalMessageCount();
+	  return average;
+	  
+	}
+	
+	
+	/**
+   * Gets most active user(s).
+   *
+   * @return a list of the name(s) of the most active user(s), or empty list if there's no user.
+   */
+  
+  public String getMostActiveUser() {
+	  
+	  Set<String> users = getUsers();
+	  String mostActiveUser = new String();
+	  int messages = 0;
+	  
+	  for(String user : users) {
+		int userMessagesCount = getMessages(user).size();
+		if (userMessagesCount > messages) {
+			messages = userMessagesCount;
+			mostActiveUser = user;
+		}
+		else if (userMessagesCount != 0 && userMessagesCount == messages)
+			mostActiveUser = mostActiveUser + ", " + user;
+	  }
+	  
+	  return mostActiveUser;
+		  
+	}
 }
