@@ -87,6 +87,7 @@ public class MessageServlet extends HttpServlet {
 
     Message message = new Message(user, input);
     datastore.storeMessage(message);
+  //testing
 
   // String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
   // TextProcessor processor = BBProcessorFactory.getInstance().create();
