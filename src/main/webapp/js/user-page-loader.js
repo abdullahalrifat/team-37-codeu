@@ -67,6 +67,18 @@ function fetchMessages() {
       });
 }
 
+function fetchBlobstoreUrlAndShowForm() {
+fetch('/blobstore-upload-url')
+  .then((response) => {
+	return response.text();
+  })
+  .then((imageUploadUrl) => {
+	const messageForm = document.getElementById('image-form');
+	messageForm.action = imageUploadUrl;
+	messageForm.classList.remove('hidden');
+  });
+}
+
 /**
  * Builds an element that displays the message.
  * @param {Message} message
@@ -94,5 +106,6 @@ function buildMessageDiv(message) {
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
+  fetchBlobstoreUrlAndShowForm();
   fetchMessages();
 }
