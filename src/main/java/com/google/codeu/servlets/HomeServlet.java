@@ -1,79 +1,37 @@
 package com.google.codeu.servlets;
-
-
 import java.io.IOException;
-
-
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-
 import javax.servlet.http.HttpServlet;
-
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
-
-
 import com.google.appengine.api.users.UserService;
-
 import com.google.appengine.api.users.UserServiceFactory;
 
-
-@WebServlet("/home.html")
-
+@WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 
 
   @Override
 
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    throws IOException, ServletException {
 
     
 
     UserService userService = UserServiceFactory.getUserService();
-
-     
-
-    response.setContentType("text/html;");
-
-    response.getOutputStream().println("<!DOCTYPE html>");
-
-    response.getOutputStream().println("<html>");
-
-    response.getOutputStream().println("<head>");
-
-    response.getOutputStream().println("<title>Servlet HTML Example</title>");
-
-    response.getOutputStream().println("</head>");
-
-    response.getOutputStream().println("<body>");
-
-    
+    boolean isUserLoggedIn = userService.isUserLoggedIn();
+    request.setAttribute("isUserLoggedIn", isUserLoggedIn);
 
     if (userService.isUserLoggedIn()) {
 
       String username = userService.getCurrentUser().getEmail();
-
-      response.getOutputStream().println(
-
-          "<a href=\"/user-page.html?user=" + username + "\">Your Page</a>");
-
-      response.getOutputStream().println("<a href=\"/logout\">Logout</a>");
-
-    } else {
-
-      response.getOutputStream().println("<a href=\"/login\">Login</a>");
+      request.setAttribute("username", username);
 
     }
 
-    
-
-    response.getOutputStream().println("<h1>Servlet HTML Example</h1>");
-
-    response.getOutputStream().println("<p>This HTML came from a servlet!</p>");
-
-    response.getOutputStream().println("</body>");
-
-    response.getOutputStream().println("</html>");
+    request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
 
   }
 
