@@ -81,19 +81,13 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-	//String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
-	String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+	  String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 	  TextProcessor processor = BBProcessorFactory.getInstance().create();
 	  String input= processor.process( text ) ;
 
 	  Message message = new Message(user, input);
 	  datastore.storeMessage(message);
-	  
-	//String textReplaced = replaceUserText(userText);
-
-	//Message message = new Message(user, textReplaced);
-	//datastore.storeMessage(message);
 
 
     response.sendRedirect("/user-page.html?user=" + user);
@@ -121,11 +115,5 @@ public class MessageServlet extends HttpServlet {
 	return userText.replaceAll(regex, replacement);
 
  }
-
-   // public boolean urlValidator (String url) {
-
-	 // UrlValidator urlValidator = new UrlValidator();
-	 // return urlValidator.isValid(url);
-  // }
 
 }
