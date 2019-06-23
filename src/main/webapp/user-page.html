@@ -52,7 +52,19 @@ limitations under the License.
       <button>Submit</button>
     </form>
     <hr/>
-
+	
+	<form id="image-analysis-form" method="POST" class="hidden" enctype="multipart/form-data" action="<%= uploadUrl %>">
+      <p>Text:</p>
+      <br/>
+      <textarea name="message"></textarea>
+      <br/>
+      <p>Upload an image for analysis:</p>
+      <input type="file" name="image">
+      <br/><br/>
+      <button>Analyze</button>
+    </form>
+    <hr/>
+	
     <div id="message-container">Loading...</div>
 
   </body>
