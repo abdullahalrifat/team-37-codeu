@@ -10,7 +10,7 @@
 
   <body>
 
-    <h1>Unix Time</h1>
+    <h4>Unix Time</h4>
 
     <p>The current Unix time is: <%= System.currentTimeMillis() %></p>
 
