@@ -1,52 +1,82 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>A New Chart</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawBasic);
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart(){
+          fetch("/placechart")
+              .then((response) => {
+                return response.json();
+              })
+              .then((placeJson) => {
+                var placeData = new google.visualization.DataTable();
+                //define columns for the DataTable instance
+                placeData.addColumn('string', 'place Title');
+                placeData.addColumn('number', 'Rating');
 
-function drawBasic() {
+                for (i = 0; i < placeJson.length; i++) {
+                  placeRow = [];
+                  var title = placeJson[i].title;
+                  var ratings = placeJson[i].rating;
+                  placeRow.push(title, ratings);
 
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Day');
-      data.addColumn('number', 'No. of SighnUps');
-
-      data.addRows([
-        ['Sat', 20],
-        ['Sun', 3],
-        ['Mon', 1],
-        ['Tue', 7],
-        ['Wed', 0],
-        ['Thu', 4],
-        ['Fri', 6],
-      ]);
-
-      var options = {
-        title: 'New users per day for last week',
-        hAxis: {
-          title: 'Day',
-         
-        },
-        vAxis: {
-          title: 'SighnUps'
+                  placeData.addRow(placeRow);
+               }
+               var chartOptions = {
+                                 width: 800,
+                                 height: 400
+                   };
+               var placechart = new google.visualization.BarChart(document.getElementById('place_chart'));
+               placechart.draw(placeData, chartOptions);
+           })
         }
-      };
-
-      var chart = new google.visualization.ColumnChart(
-        document.getElementById('chart_div'));
-
-      chart.draw(data, options);
+    </script>
+	
+	<script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+	    google.charts.setOnLoadCallback(drawBasic);
+		function drawBasic() {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Day');
+			data.addColumn('number', 'No. of SighnUps');
+			data.addRows([
+				['Sat', 20],
+				['Sun', 3],
+				['Mon', 1],
+				['Tue', 7],
+				['Wed', 0],
+				['Thu', 4],
+				['Fri', 6],
+		  ]);
+		  var options = {
+			title: 'New users per day for last week',
+			hAxis: {
+			  title: 'Day',
+			 
+			},
+			vAxis: {
+			  title: 'SighnUps'
+			}
+		  };
+		  var chart = new google.visualization.ColumnChart(
+			document.getElementById('chart_div'));
+		  chart.draw(data, options);
     }
     </script>
   </head>
-  <body onload="buildUI();">
-  
-  <nav>
+  <body>
+    <h1>Chart Project</h1>
+	<nav>
       <ul id="navigation">
         <li><a href="/" >Home</a></li>
       </ul>
     </nav>
-    <h1 id="page-title">CHARTS</h1>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+	<h2>RATING FOR TOP TEN PLACES TO TRAVEL</h2>
+    <div id="place_chart"></div>
+	<h2>NEW USERS PER DAY FOR LAST WEEK</h2>
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
