@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+   
 // Get ?user=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
@@ -97,6 +97,20 @@ function fetchBlobstoreUrlAndShowForm() {
 
 }
 
+
+function analysis() {
+	fetch('/blobstore-upload-url-analysis')
+		.then((response) => {
+			return response.text();
+		})
+		.then((imageUploadUrl) => {
+			const messageForm = document.getElementById('image-analysis-form');
+			messageForm.action = imageUploadUrl;
+			messageForm.classList.remove('hidden');
+		});
+}
+
+
 /**
  * Builds an element that displays the message.
  * @param {Message} message
@@ -125,6 +139,7 @@ function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchBlobstoreUrlAndShowForm();
+  analysis() ;
   fetchMessages();
   fetchAboutMe();
 }
