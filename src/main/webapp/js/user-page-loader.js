@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+   
 // Get ?user=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
@@ -42,6 +42,7 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
+		  document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
 }
@@ -66,6 +67,49 @@ function fetchMessages() {
         });
       });
 }
+
+/** fetches about me*/
+function fetchAboutMe(){
+  const url = '/about?user=' + parameterUsername;
+  fetch(url).then((response) => {
+    return response.text();
+  }).then((aboutMe) => {
+    const aboutMeContainer = document.getElementById('about-me-container');
+    if(aboutMe == ''){
+      aboutMe = 'This user has not entered any information yet.';
+    }
+    
+    aboutMeContainer.innerHTML = aboutMe;
+
+  });
+}
+
+function fetchBlobstoreUrlAndShowForm() {
+	fetch('/blobstore-upload-url')
+		.then((response) => {
+			return response.text();
+		})
+		.then((imageUploadUrl) => {
+			const messageForm = document.getElementById('image-form');
+			messageForm.action = imageUploadUrl;
+			messageForm.classList.remove('hidden');
+		});
+
+}
+
+
+function analysis() {
+	fetch('/blobstore-upload-url-analysis')
+		.then((response) => {
+			return response.text();
+		})
+		.then((imageUploadUrl) => {
+			const messageForm = document.getElementById('image-analysis-form');
+			messageForm.action = imageUploadUrl;
+			messageForm.classList.remove('hidden');
+		});
+}
+
 
 /**
  * Builds an element that displays the message.
@@ -94,5 +138,8 @@ function buildMessageDiv(message) {
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
+  fetchBlobstoreUrlAndShowForm();
+  analysis() ;
   fetchMessages();
+  fetchAboutMe();
 }
