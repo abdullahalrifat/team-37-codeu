@@ -45,11 +45,23 @@ limitations under the License.
 	<hr/>
 
     <form id="message-form" action="/messages" method="POST" class="hidden">
-      Enter a new message:
+      <p>Enter a new message:</p>
       <br/>
       <textarea name="text" id="message-input"></textarea>
       <br/>
       <input type="submit" value="Submit">
+    </form>
+    <hr/>
+	
+	<form id="image-form" method="POST" class="hidden" enctype="multipart/form-data">
+      <p>Text:</p>
+      <br/>
+      <textarea name="message"></textarea>
+      <br/>
+      <p>Upload an image:</p>
+      <input type="file" name="image">
+      <br/><br/>
+      <button>Submit</button>
     </form>
     <hr/>
 
