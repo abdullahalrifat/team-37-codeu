@@ -22,6 +22,9 @@ limitations under the License.
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="/js/user-page-loader.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	  <script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css" />
   </head>
   <body onload="buildUI();">
     <nav>
@@ -51,6 +54,12 @@ limitations under the License.
       <br/>
       <input type="submit" value="Submit">
     </form>
+
+ <script>
+ $(function() {
+	 $("#message-input").wysibb();
+	 })
+</script>
     <hr/>
 	
 	<form id="image-form" method="POST" class="hidden" enctype="multipart/form-data">
@@ -81,3 +90,4 @@ limitations under the License.
 
   </body>
 </html>
+<jsp:include page="response.jsp"/>
