@@ -7,6 +7,7 @@ public class Mates
     private String user;
     private double alat;
     private double along;
+    private String details;
     private long timestamp;
 
     private static double defaultLat = 23.7474824;
@@ -16,8 +17,8 @@ public class Mates
      * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
      * random ID and uses the current system time for the creation time.
      */
-    public Mates(String user, double alat,double along) {
-        this(UUID.randomUUID(), user, alat,along, System.currentTimeMillis());
+    public Mates(String user, double alat,double along,String details) {
+        this(UUID.randomUUID(), user, alat,along,details, System.currentTimeMillis());
     }
 
     public Mates(UUID id, String user,double alat,double along, long timestamp) {
@@ -25,6 +26,14 @@ public class Mates
         this.user = user;
         this.alat = alat;
         this.along = along;
+        this.timestamp = timestamp;
+    }
+    public Mates(UUID id, String user,double alat,double along, String details,long timestamp) {
+        this.id = id;
+        this.user = user;
+        this.alat = alat;
+        this.along = along;
+        this.details = details;
         this.timestamp = timestamp;
     }
 
@@ -46,5 +55,13 @@ public class Mates
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 }

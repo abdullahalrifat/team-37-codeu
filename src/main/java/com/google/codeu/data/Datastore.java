@@ -123,8 +123,12 @@ public class Datastore {
                 UUID id = UUID.fromString(idString);
                 double alat = (Double) entity.getProperty("alat");
                 double along = (Double) entity.getProperty("along");
+                String details = (String)entity.getProperty("details");
                 long timestamp = (long) entity.getProperty("timestamp");
-                Mates mate = new Mates(id, user, alat,along, timestamp);
+
+
+                Mates mate = new Mates(id, user, alat,along,details, timestamp);
+
                 mates.add(mate);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
@@ -155,8 +159,11 @@ public class Datastore {
                 String user = (String) entity.getProperty("user");
                 double alat = (Double) entity.getProperty("alat");
                 double along = (Double) entity.getProperty("along");
+                String details = (String)entity.getProperty("details");
                 long timestamp = (long) entity.getProperty("timestamp");
-                Mates mate = new Mates(id, user, alat,along, timestamp);
+
+                Mates mate = new Mates(id, user, alat,along,details, timestamp);
+
                 mates.add(mate);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
@@ -172,6 +179,7 @@ public class Datastore {
         messageEntity.setProperty("user", mate.getUser());
         messageEntity.setProperty("alat", mate.getLat());
         messageEntity.setProperty("along", mate.getLong());
+        messageEntity.setProperty("details", mate.getDetails());
         messageEntity.setProperty("timestamp", mate.getTimestamp());
         datastore.put(messageEntity);
     }
