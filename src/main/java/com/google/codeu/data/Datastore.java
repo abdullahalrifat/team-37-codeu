@@ -180,6 +180,54 @@ public class Datastore {
    *
    * @return a set of users, or an empty set if there is no user.
    */
+
+    public List<Guides> getAllGuide() {
+        List<Guides> guides = new ArrayList<>();
+
+        Query query =
+                new Query("Guides")
+                        //.setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity : results.asIterable()) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+                //String text = (String) entity.getProperty("text");
+                String name = (String) entity.getProperty("name");
+                String address = (String) entity.getProperty("address");
+                double contact_no = (Double) entity.getProperty("contact_no");
+                String gender = (String) entity.getProperty("gender");
+                String location = (String) entity.getProperty("location");
+                double charge = (Double) entity.getProperty("charge");
+                long timestamp = (long) entity.getProperty("timestamp");
+
+                Guides guide = new Guides(id, name, address, contact_no, gender, location, charge, timestamp);
+                guides.add(guide);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
+        }
+
+        return guides;
+    }
+
+    public void storeGuide(Guides guide) {
+        Entity messageEntity = new Entity("Guides", guide.getId().toString());
+        messageEntity.setProperty("name", guide.getName());
+        messageEntity.setProperty("address", guide.getAddress());
+        messageEntity.setProperty("contact_no", guide.getContactNo());
+        messageEntity.setProperty("gender", guide.getGender());
+        messageEntity.setProperty("location", guide.getLocation());
+        messageEntity.setProperty("charge", guide.getCharge());
+        messageEntity.setProperty("timestamp", guide.getTimestamp());
+
+        datastore.put(messageEntity);
+    }
+   
    public Set<String> getUsers(){
        Set<String> users = new HashSet<>();
        Query query = new Query("Message");
