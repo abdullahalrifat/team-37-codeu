@@ -76,7 +76,7 @@ public class GuideServlet extends HttpServlet {
         Guides guide = new Guides(name, address, contact_no, gender, location, charge);
         datastore.storeGuide(guide);
 
-        response.sendRedirect("/guide-reg.html");
+        response.sendRedirect("/guide-reg.jsp");
     }
 
 
