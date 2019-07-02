@@ -23,6 +23,7 @@ import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,6 @@ import org.kefirsf.bb.BBProcessorFactory;
 import org.kefirsf.bb.TextProcessor;
 
 //import org.primeframework.transformer.service.BBCodeParser;
-
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
@@ -113,7 +113,10 @@ public class MessageServlet extends HttpServlet {
 	}
 
 	return userText.replaceAll(regex, replacement);
+}
+  // public boolean urlValidator (String url) {
 
- }
-
+	 // UrlValidator urlValidator = new UrlValidator();
+	 // return urlValidator.isValid(url);
+  // }
 }

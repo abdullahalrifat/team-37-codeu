@@ -28,6 +28,8 @@ limitations under the License.
   <url>http://maven.apache.org</url>
 
   <properties>
+	<exec.mainClass>com.google.codeu.data.VisionHelloWorld</exec.mainClass>
+    <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,7 +41,7 @@ limitations under the License.
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
 
@@ -58,7 +60,7 @@ limitations under the License.
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-datastore</artifactId>
-      <version>1.52.0</version>
+      <version>1.79.0</version>
     </dependency>
 		
 	<dependency>
@@ -71,6 +73,25 @@ limitations under the License.
 		<groupId>org.apache.commons</groupId>
 		<artifactId>commons-lang3</artifactId>
 		<version>3.9</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.google.cloud</groupId>
+	    <artifactId>google-cloud-vision</artifactId>
+	    <version>1.79.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.google.api</groupId>
+		<artifactId>gax</artifactId>
+		<version>1.46.1</version>
+	</dependency>
+	
+	
+	<dependency>
+	  <groupId>com.google.api</groupId>
+	  <artifactId>gax-grpc</artifactId>
+	  <version>1.46.1</version>
 	</dependency>
 
 
@@ -86,7 +107,7 @@ limitations under the License.
 	  <plugin>
          <groupId>com.google.appengine</groupId>
          <artifactId>appengine-maven-plugin</artifactId>
-         <version>1.9.59</version>
+         <version>1.9.71</version>
 	  </plugin>
 	  
     </plugins>

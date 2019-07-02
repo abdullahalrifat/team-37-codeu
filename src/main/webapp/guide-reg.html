@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guide Registration</title>
+	<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+input[type=text] {
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+</style>
+</head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<body>
+
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/aboutus.html">About Our Team</a></li>
+			<li><a href="/guide-reg.html">Guide Registration</a></li>
+		</ul>
+<div class="row">
+	<div class="col-md-6">
+		<form style="margin: 100px;" action="/guides" method="POST">
+			Name: 
+			</br>
+			<input type="text" name="name" id="name" >
+			</br>
+			Address: 
+			</br>
+			<input type="text" name="address"  id="address">
+			</br>
+			Contact No: 
+			</br>
+			<input type="text" name="contact_no"  id="contact_no">
+			</br>
+			Gender: 
+			</br>
+			<input type="text" name="gender"  id="gender">
+			</br>
+			Location: 
+			</br>
+			<input type="text" name="location"  id="location">
+			</br>
+			Charge(Per hour): 
+			</br>
+			<input type="text" name="charge"  id="charge">
+			</br>
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+	<div style="float: left;" class="col-md-6">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Address</th>
+					<th>Contact No</th>
+					<th>Gender</th>
+					<th>Location</th>
+					<th>Charge</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>
