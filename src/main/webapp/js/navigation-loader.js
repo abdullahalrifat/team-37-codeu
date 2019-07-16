@@ -66,9 +66,6 @@ function addLoginOrLogoutLinkToNavigation() {
                 createListItem(createLink('#services', 'Services')));
 
             navigationElement.appendChild(
-                createListItem(createLink('#portfolio', 'Portfolio')));
-
-            navigationElement.appendChild(
                 createListItem(createLink('#team', 'Team')));
 
             navigationElement.appendChild(
