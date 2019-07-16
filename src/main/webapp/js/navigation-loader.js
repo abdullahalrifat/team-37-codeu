@@ -73,7 +73,10 @@ function addLoginOrLogoutLinkToNavigation() {
 
             navigationElement.appendChild(
                 createListItem(createLink('#contact', 'Contact')));
-				
+				    
+            navigationElement.appendChild(
+                createListItem(createLink('/guide-reg.jsp', 'Guide Registration')));
+
 			navigationElement.appendChild(
                 createListItem(createLink(
                     '/chart.html', 'Charts')));
