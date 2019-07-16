@@ -54,7 +54,10 @@ input[type=submit] {
 			<li><a href="/guide-reg.html">Guide Registration</a></li>
 		</ul>
  <h3> This Form is used to store the information about the guide. Tourist guide can register here. Travellers can get the information about the guide before visiting any place. There is a guide list which contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). </h3>
-		<form style="margin: 100px;" action="/guide-list.jsp" method="POST">
+		<form style="margin: 100px;" action="/guides" method="POST">
+			<input type="hidden" name="alat"  id="lat"/>
+			<input type="hidden" name="along"  id="long"/>
+
 			Name:
 			</br>
 			<input type="text" name="name" id="name" >
@@ -73,7 +76,7 @@ input[type=submit] {
 			</br>
 			Location:
 			</br>
-			<input type="text" name="location"  id="location">
+			<input type="text" name="location" id="autocomplete_search" >
 			</br>
 			Charge(Per hour):
 			</br>
@@ -81,5 +84,19 @@ input[type=submit] {
 			</br>
 			<input type="submit" value="Submit">
 		</form>
+		<script>
+		function autocompleteAPI() {
+			var input = document.getElementById( 'autocomplete_search' );
+			var autocomplete = new google.maps.places.Autocomplete( input );
+			autocomplete.addListener('place_changed', function () {
+				var place = autocomplete.getPlace();
+				document.getElementById('lat').value=place.geometry['location'].lat();
+				document.getElementById('long').value=place.geometry['location'].lng();
+
+				
+			});
+		}
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI"></script>
 </body>
 </html>

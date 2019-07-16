@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 
 
 /** Handles fetching and saving {@link Message} instances. */
@@ -51,15 +53,39 @@ public class GuideServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        response.setContentType("application/json");
+        // response.setContentType("application/json");
+        response.setContentType("text/html");
 
         List<Guides> guides = datastore.getAllGuide();
-        System.out.println("get method");
-        System.out.println(guides.get(0).getTimestamp());
+        // System.out.println("get method");
+        // System.out.println(guides.get(0).getTimestamp());
         Gson gson = new Gson();
         String json = gson.toJson(guides);
 
-        response.getWriter().println(json);
+        // request.setAttribute('guides', guides);
+        // request.getRequestDispatcher("/guide-list.jsp").forward(request,response);
+        try {
+            RequestDispatcher rd = request.getRequestDispatcher("/guide-list.jsp");
+            rd.forward(request, response);
+        } catch( ServletException e ) {
+            response.getWriter().println("hello world");
+            response.getWriter().println(e.getMessage());
+        }
+
+        // response.getWriter().println(json);
+        // request.setAttribute('guides', guides);
+        // RequestDispatcher rd = request.getRequestDispatcher("guide-list.jsp");
+        // rd.forward(request, response);
+        /*try {
+            // code that throws an Exception
+            rd.forward(request, response);
+            // rd.include(request, response);
+        } catch (Exception e) {
+            // throw new ServletException(e);
+            System.println.out('hello world');
+        }*/
+        // request.getRequestDispatcher("/guide-list.jsp").forward(request, response);
+        // System.out.println('hello world');
     }
 
     /** Stores a new {@link Message}. */
@@ -71,12 +97,17 @@ public class GuideServlet extends HttpServlet {
         double contact_no = Double.parseDouble(request.getParameter("contact_no"));
         String gender = Jsoup.clean(request.getParameter("gender"), Whitelist.none());
         String location = Jsoup.clean(request.getParameter("location"), Whitelist.none());
-        double charge = Double.parseDouble(request.getParameter("contact_no"));
+        double charge = Double.parseDouble(request.getParameter("charge"));
+        double alat = Double.parseDouble(request.getParameter("alat"));
+        double along = Double.parseDouble(request.getParameter("along"));
 
-        Guides guide = new Guides(name, address, contact_no, gender, location, charge);
+        System.out.println(request.getParameter("alat"));
+        System.out.println(request.getParameter("along"));
+
+        Guides guide = new Guides(name, address, contact_no, gender, location, charge, alat, along);
         datastore.storeGuide(guide);
 
-        response.sendRedirect("/guide-reg.jsp");
+        response.sendRedirect("/guide-list.jsp");
     }
 
 
