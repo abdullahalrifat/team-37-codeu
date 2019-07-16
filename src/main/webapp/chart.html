@@ -16,13 +16,11 @@
                 //define columns for the DataTable instance
                 placeData.addColumn('string', 'place Title');
                 placeData.addColumn('number', 'Rating');
-
                 for (i = 0; i < placeJson.length; i++) {
                   placeRow = [];
                   var title = placeJson[i].title;
                   var ratings = placeJson[i].rating;
                   placeRow.push(title, ratings);
-
                   placeData.addRow(placeRow);
                }
                var chartOptions = {
@@ -55,7 +53,6 @@
 			title: 'New users per day for last week',
 			hAxis: {
 			  title: 'Day',
-			 
 			},
 			vAxis: {
 			  title: 'SighnUps'
@@ -67,6 +64,7 @@
     }
     </script>
   </head>
+  
   <body>
     <h1>Chart Project</h1>
 	<nav>
