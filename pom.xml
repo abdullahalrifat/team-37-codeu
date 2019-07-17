@@ -101,7 +101,7 @@ limitations under the License.
 	  <plugin>
          <groupId>com.google.appengine</groupId>
          <artifactId>appengine-maven-plugin</artifactId>
-         <version>1.9.71</version>
+         <version>1.9.76</version>
 	  </plugin>
 	  
     </plugins>
