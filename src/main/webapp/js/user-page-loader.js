@@ -43,7 +43,6 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
-		  document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
 }
@@ -69,8 +68,6 @@ function fetchMessages() {
       });
 }
 
-
-
 /** fetches about me*/
 function fetchAboutMe(){
   const url = '/about?user=' + parameterUsername;
@@ -95,21 +92,18 @@ function fetchBlobstoreUrlAndShowForm() {
 		.then((imageUploadUrl) => {
 			const messageForm = document.getElementById('image-form');
 			messageForm.action = imageUploadUrl;
-			messageForm.classList.remove('hidden');
+			//messageForm.classList.remove('hidden');
 		});
-
 }
 
 /** Check if Text Field is empty. */
 
 function checkInput() {
-	if(document.getElementById('message-input').value.length == 0) { 
+	if (document.getElementById('message-input').value.length == 0) 
             document.getElementById('submit').disabled = true; 
-        } else { 
+		else
             document.getElementById('submit').disabled = false;
-        }
 }
-
 
 /**
  * Builds an element that displays the message.
@@ -138,8 +132,10 @@ function buildMessageDiv(message) {
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
-  showMessageFormIfViewingSelf();
-  checkInput() ;
+  //showMessageFormIfViewingSelf();
+  fetchBlobstoreUrlAndShowForm();
+  //checkInput() ;
   fetchMessages();
-  fetchAboutMe();
+  
+  //fetchAboutMe();
 }
