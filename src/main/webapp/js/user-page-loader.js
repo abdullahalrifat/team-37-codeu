@@ -32,6 +32,7 @@ function setPageTitle() {
 /**
  * Shows the message form if the user is logged in and viewing their own page.
  */
+ 
 function showMessageFormIfViewingSelf() {
   fetch('/login-status')
       .then((response) => {
@@ -67,29 +68,14 @@ function fetchMessages() {
       });
 }
 
-function fetchBlobstoreUrlAndShowForm() {
-	fetch('/blobstore-upload-url')
-		.then((response) => {
-			return response.text();
-		})
-		.then((imageUploadUrl) => {
-			const messageForm = document.getElementById('image-form');
-			messageForm.action = imageUploadUrl;
-			messageForm.classList.remove('hidden');
-		});
-}
+/** Check if Text Field is filled. */
 
-
-function analysis() {
-	fetch('/blobstore-upload-url-analysis')
-		.then((response) => {
-			return response.text();
-		})
-		.then((imageUploadUrl) => {
-			const messageForm = document.getElementById('image-analysis-form');
-			messageForm.action = imageUploadUrl;
-			messageForm.classList.remove('hidden');
-		});
+function checkInput() {
+	if(document.getElementById('message-input').value.length == 0) { 
+            document.getElementById('submit').disabled = true; 
+        } else { 
+            document.getElementById('submit').disabled = false;
+        }
 }
 
 
@@ -98,6 +84,7 @@ function analysis() {
  * @param {Message} message
  * @return {Element}
  */
+ 
 function buildMessageDiv(message) {
   const headerDiv = document.createElement('div');
   headerDiv.classList.add('message-header');
@@ -120,7 +107,6 @@ function buildMessageDiv(message) {
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
-  fetchBlobstoreUrlAndShowForm();
-  analysis() ;
+  checkInput() ;
   fetchMessages();
 }
