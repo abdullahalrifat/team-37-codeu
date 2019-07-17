@@ -20,10 +20,10 @@ public class Guides
      * random ID and uses the current system time for the creation time.
      */
     public Guides(String name, String address, double contact_no, String gender, String location, double charge, double alat,double along ) {
-        this(UUID.randomUUID(), name, address, contact_no, gender, location, charge, alat,along, System.currentTimeMillis());
+        this(UUID.randomUUID(), name, address, contact_no, gender, location, charge, alat, along, System.currentTimeMillis());
     }
 
-    public Guides(UUID id, String name, String address, double contact_no, String gender, String location, double charge,double alat,double along, long timestamp) {
+    public Guides(UUID id, String name, String address, double contact_no, String gender, String location, double charge, double alat, double along, long timestamp) {
         this.id = id;
         this.name = name;
         this.address = address;

@@ -213,7 +213,7 @@ public class Datastore {
                 double along = (Double) entity.getProperty("along");
                 long timestamp = (long) entity.getProperty("timestamp");
 
-                Guides guide = new Guides(id, name, address, contact_no, gender, location, charge, alat,along, timestamp);
+                Guides guide = new Guides(id, name, address, contact_no, gender, location, charge, alat, along, timestamp);
                 guides.add(guide);
             } catch (Exception e) {
                 System.err.println("Error reading message.");

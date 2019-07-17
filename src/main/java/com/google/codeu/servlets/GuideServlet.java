@@ -51,7 +51,7 @@ public class GuideServlet extends HttpServlet {
      * an empty array if the user is not provided.
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         // response.setContentType("application/json");
         response.setContentType("text/html");
@@ -59,18 +59,18 @@ public class GuideServlet extends HttpServlet {
         List<Guides> guides = datastore.getAllGuide();
         // System.out.println("get method");
         // System.out.println(guides.get(0).getTimestamp());
-        Gson gson = new Gson();
-        String json = gson.toJson(guides);
 
-        // request.setAttribute('guides', guides);
-        // request.getRequestDispatcher("/guide-list.jsp").forward(request,response);
-        try {
-            RequestDispatcher rd = request.getRequestDispatcher("/guide-list.jsp");
-            rd.forward(request, response);
-        } catch( ServletException e ) {
-            response.getWriter().println("hello world");
-            response.getWriter().println(e.getMessage());
-        }
+        // Gson gson = new Gson();
+        // String json = gson.toJson(guides);
+
+        // request.setAttribute("guides", json);
+        request.setAttribute("guides", guides);
+        request.setAttribute("guidesCount", guides.size());
+
+        request.getRequestDispatcher("/guide-list.jsp").forward(request,response);
+
+        // RequestDispatcher rd = request.getRequestDispatcher("/guide-list.jsp");
+        // rd.forward(request, response);
 
         // response.getWriter().println(json);
         // request.setAttribute('guides', guides);
@@ -107,7 +107,7 @@ public class GuideServlet extends HttpServlet {
         Guides guide = new Guides(name, address, contact_no, gender, location, charge, alat, along);
         datastore.storeGuide(guide);
 
-        response.sendRedirect("/guide-list.jsp");
+        response.sendRedirect("/guides");
     }
 
 

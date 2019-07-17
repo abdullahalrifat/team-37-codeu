@@ -1,6 +1,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	
+
 	<nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
@@ -21,8 +21,18 @@
 
 
 			<tbody>
-				<tr>
-
-				</tr>
+				<%
+				int guidesCount = (int) request.getAttribute("guidesCount");
+				for(int i = 0; i < guidesCount; i++) {
+				%>
+				    <tr>
+				        <td>${guides.get(i).getName()}</td>
+				        <td>${guides.get(i).getAddress()}</td>
+				        <td>${guides.get(i).getContactNo()}</td>
+				        <td>${guides.get(i).getGender()}</td>
+				        <td>${guides.get(i).getLocation()}</td>
+				        <td>${guides.get(i).getCharge()}</td>
+				    </tr>
+				<% } %>
 			</tbody>
 		</table>
