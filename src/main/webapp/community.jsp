@@ -5,7 +5,11 @@
   <head>
 
     <title>Community Page</title>
+
     <link rel="stylesheet" href="/css/main.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css" />
 
     <script>
 
@@ -70,13 +74,15 @@
   </head>
 
   <body onload="buildUI()">
+
     <nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
         <li><a href="/aboutus.html">About Our Team</a></li>
-        <li><a href="/guide-reg.html">About Our Team</a></li>
+        <li><a href="/community.jsp">Community</a></li>
       </ul>
     </nav>
+
     <div id="content">
 
       <h1>Community Page</h1>
@@ -88,8 +94,7 @@
       <ul id="list">Loading...</ul>
 
     </div>
-   
   </body>
-
+<jsp:include page="unix-time.jsp" /> 
 </html>
 

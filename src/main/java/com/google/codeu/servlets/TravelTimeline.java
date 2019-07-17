@@ -33,8 +33,8 @@ import org.jsoup.safety.Whitelist;
 
 
 /** Handles fetching and saving {@link Message} instances. */
-@WebServlet("/travelMates")
-public class TravelMates extends HttpServlet {
+@WebServlet("/travelTimeline")
+public class TravelTimeline extends HttpServlet {
 
     private Datastore datastore;
     UserService userService = UserServiceFactory.getUserService();
@@ -60,8 +60,16 @@ public class TravelMates extends HttpServlet {
             return;
         }*/
 
-        List<Mates> mates = datastore.getAllMates();
+        if (!userService.isUserLoggedIn()) {
+            response.sendRedirect("/index.html");
+            return;
+        }
 
+        String user = userService.getCurrentUser().getEmail();
+
+        List<Mates> mates = datastore.getMate(user);
+        //System.out.println("get method");
+        //System.out.println(mates.get(0).getTimestamp());
         Gson gson = new Gson();
         String json = gson.toJson(mates);
 
@@ -81,12 +89,13 @@ public class TravelMates extends HttpServlet {
         String user = userService.getCurrentUser().getEmail();
         double alat = Double.parseDouble(request.getParameter("alat"));
         double along = Double.parseDouble(request.getParameter("along"));
+        String details = request.getParameter("details");
 
 
-        System.out.println(request.getParameter("alat"));
-        System.out.println(request.getParameter("along"));
+        //System.out.println(request.getParameter("alat"));
+        //System.out.println(request.getParameter("along"));
 
-        Mates mate = new Mates(user, alat,along,user);
+        Mates mate = new Mates(user, alat,along,details);
         datastore.storeMates(mate);
 
         response.sendRedirect("/user-page.html?user=" + user);

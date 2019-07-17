@@ -54,6 +54,10 @@ function addLoginOrLogoutLinkToNavigation() {
             navigationElement.appendChild(
                 createListItem(createLink(
                     '/aboutus.html', 'About')));
+					
+			navigationElement.appendChild(
+                createListItem(createLink(
+                    '/chart.html', 'Charts')));
 
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
@@ -62,13 +66,17 @@ function addLoginOrLogoutLinkToNavigation() {
                 createListItem(createLink('#services', 'Services')));
 
             navigationElement.appendChild(
-                createListItem(createLink('#portfolio', 'Portfolio')));
-
-            navigationElement.appendChild(
                 createListItem(createLink('#team', 'Team')));
 
             navigationElement.appendChild(
                 createListItem(createLink('#contact', 'Contact')));
+				    
+            navigationElement.appendChild(
+                createListItem(createLink('/guide-reg.jsp', 'Guide Registration')));
+
+			navigationElement.appendChild(
+                createListItem(createLink(
+                    '/chart.html', 'Charts')));
 
           navigationElement.appendChild(
               createListItem(createLink('/login', 'Login')));

@@ -20,6 +20,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Mates;
+import com.google.codeu.data.Guides;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -33,11 +34,11 @@ import org.jsoup.safety.Whitelist;
 
 
 /** Handles fetching and saving {@link Message} instances. */
-@WebServlet("/travelMates")
-public class TravelMates extends HttpServlet {
+@WebServlet("/guides")
+public class GuideServlet extends HttpServlet {
 
     private Datastore datastore;
-    UserService userService = UserServiceFactory.getUserService();
+
     @Override
     public void init() {
         datastore = new Datastore();
@@ -52,18 +53,11 @@ public class TravelMates extends HttpServlet {
 
         response.setContentType("application/json");
 
-        /*String user = request.getParameter("user");
-
-        if (user == null || user.equals("")) {
-            // Request is invalid, return empty array
-            response.getWriter().println("[]");
-            return;
-        }*/
-
-        List<Mates> mates = datastore.getAllMates();
-
+        List<Guides> guides = datastore.getAllGuide();
+        System.out.println("get method");
+        System.out.println(guides.get(0).getTimestamp());
         Gson gson = new Gson();
-        String json = gson.toJson(mates);
+        String json = gson.toJson(guides);
 
         response.getWriter().println(json);
     }
@@ -72,24 +66,17 @@ public class TravelMates extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        String name = Jsoup.clean(request.getParameter("name"), Whitelist.none());
+        String address = Jsoup.clean(request.getParameter("address"), Whitelist.none());
+        double contact_no = Double.parseDouble(request.getParameter("contact_no"));
+        String gender = Jsoup.clean(request.getParameter("gender"), Whitelist.none());
+        String location = Jsoup.clean(request.getParameter("location"), Whitelist.none());
+        double charge = Double.parseDouble(request.getParameter("contact_no"));
 
-        if (!userService.isUserLoggedIn()) {
-            response.sendRedirect("/index.html");
-            return;
-        }
+        Guides guide = new Guides(name, address, contact_no, gender, location, charge);
+        datastore.storeGuide(guide);
 
-        String user = userService.getCurrentUser().getEmail();
-        double alat = Double.parseDouble(request.getParameter("alat"));
-        double along = Double.parseDouble(request.getParameter("along"));
-
-
-        System.out.println(request.getParameter("alat"));
-        System.out.println(request.getParameter("along"));
-
-        Mates mate = new Mates(user, alat,along,user);
-        datastore.storeMates(mate);
-
-        response.sendRedirect("/user-page.html?user=" + user);
+        response.sendRedirect("/guide-reg.jsp");
     }
 
 

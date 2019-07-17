@@ -73,242 +73,45 @@
 </header>
 
 <!-- Services -->
+<!-- Services -->
 <section class="page-section" id="services">
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <style>
-      /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-      }
-    </style>
-  </head>
-  <body>
-  <h3>My Travelling Location</h3>
-  <!--The div element for the map -->
-  <div id="map"></div>
-  <script>
-      // Initialize and add the map
-      var currentLat = -25.344;
-      var currentLong = 131.036;
-
-      function initMap() {
-          // The location of Uluru
-          var uluru = {lat: currentLat, lng: currentLong};
-          // The map, centered at Uluru
-          var map = new google.maps.Map(
-              document.getElementById('map'), {zoom: 6, center: uluru});
-          // The marker, positioned at Uluru
-          var marker = new google.maps.Marker({position: uluru, map: map});
-      }
-      function getLocation() {
-          if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition);
-          } else {
-             // x.innerHTML = "Geolocation is not supported by this browser.";
-          }
-      }
-
-      function showPosition(position) {
-          currentLat = position.coords.latitude;
-          currentLong = position.coords.longitude;
-         // x.innerHTML = "Latitude: " + position.coords.latitude +
-          //    "<br>Longitude: " + position.coords.longitude;
-          initMap();
-      }
-  </script>
-  <!--Load the API from the specified URL
-  * The async attribute allows the browser to render the page while the API loads
-  * The key parameter will contain your own API key (which is not needed for this tutorial)
-  * The callback parameter executes the initMap() function
-  -->
-  <script async defer
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&callback=getLocation">
-  </script>
-  </body>
-  </html>
-</section>
-
-<!-- Portfolio Grid -->
-<section class="bg-light page-section" id="portfolio">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2 class="section-heading text-uppercase">Portfolio</h2>
-        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+        <h2 class="section-heading text-uppercase">Services</h2>
+        <h3 class="section-subheading text-muted">Make Your Travel More Fun</h3>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-          <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-              <i class="fas fa-plus fa-3x"></i>
-            </div>
-          </div>
-          <img class="img-fluid" src="./boostrap/landing-page/img/portfolio/01-thumbnail.jpg" alt="">
-        </a>
-        <div class="portfolio-caption">
-          <h4>Threads</h4>
-          <p class="text-muted">Illustration</p>
-        </div>
+    <div class="row text-center">
+      <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-users fa-stack-1x fa-inverse"></i>
+          </span>
+        <h4 class="service-heading">Travel Mate</h4>
+        <p class="text-muted">Get A Travel Partner where ever you go. you can find people's who are travelling to the same destination you are</p>
       </div>
-      <div class="col-md-4 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-          <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-              <i class="fas fa-plus fa-3x"></i>
-            </div>
-          </div>
-          <img class="img-fluid" src="./boostrap/landing-page/img/portfolio/02-thumbnail.jpg" alt="">
-        </a>
-        <div class="portfolio-caption">
-          <h4>Explore</h4>
-          <p class="text-muted">Graphic Design</p>
-        </div>
+      <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-car fa-stack-1x fa-inverse"></i>
+          </span>
+        <h4 class="service-heading">Travel Guide</h4>
+        <p class="text-muted">Don't know the place you are travelling to ? Don't worry we will find you a travel guide for your travelling location</p>
       </div>
-      <div class="col-md-4 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-          <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-              <i class="fas fa-plus fa-3x"></i>
-            </div>
-          </div>
-          <img class="img-fluid" src="./boostrap/landing-page/img/portfolio/03-thumbnail.jpg" alt="">
-        </a>
-        <div class="portfolio-caption">
-          <h4>Finish</h4>
-          <p class="text-muted">Identity</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-          <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-              <i class="fas fa-plus fa-3x"></i>
-            </div>
-          </div>
-          <img class="img-fluid" src="./boostrap/landing-page/img/portfolio/04-thumbnail.jpg" alt="">
-        </a>
-        <div class="portfolio-caption">
-          <h4>Lines</h4>
-          <p class="text-muted">Branding</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-          <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-              <i class="fas fa-plus fa-3x"></i>
-            </div>
-          </div>
-          <img class="img-fluid" src="./boostrap/landing-page/img/portfolio/05-thumbnail.jpg" alt="">
-        </a>
-        <div class="portfolio-caption">
-          <h4>Southwest</h4>
-          <p class="text-muted">Website Design</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-          <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-              <i class="fas fa-plus fa-3x"></i>
-            </div>
-          </div>
-          <img class="img-fluid" src="./boostrap/landing-page/img/portfolio/06-thumbnail.jpg" alt="">
-        </a>
-        <div class="portfolio-caption">
-          <h4>Window</h4>
-          <p class="text-muted">Photography</p>
-        </div>
+      <div class="col-md-4">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-blog fa-stack-1x fa-inverse"></i>
+          </span>
+        <h4 class="service-heading">Travel Blog</h4>
+        <p class="text-muted">No Matter where you go you can create your travel blog or read other's blog</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- About -->
-<section class="page-section" id="about">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading text-uppercase">About</h2>
-        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <ul class="timeline">
-          <li>
-            <div class="timeline-image">
-              <img class="rounded-circle img-fluid" src="./boostrap/landing-page/img/about/1.jpg" alt="">
-            </div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4>2009-2011</h4>
-                <h4 class="subheading">Our Humble Beginnings</h4>
-              </div>
-              <div class="timeline-body">
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-inverted">
-            <div class="timeline-image">
-              <img class="rounded-circle img-fluid" src="./boostrap/landing-page/img/about/2.jpg" alt="">
-            </div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4>March 2011</h4>
-                <h4 class="subheading">An Agency is Born</h4>
-              </div>
-              <div class="timeline-body">
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-image">
-              <img class="rounded-circle img-fluid" src="./boostrap/landing-page/img/about/3.jpg" alt="">
-            </div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4>December 2012</h4>
-                <h4 class="subheading">Transition to Full Service</h4>
-              </div>
-              <div class="timeline-body">
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-inverted">
-            <div class="timeline-image">
-              <img class="rounded-circle img-fluid" src="./boostrap/landing-page/img/about/4.jpg" alt="">
-            </div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4>July 2014</h4>
-                <h4 class="subheading">Phase Two Expansion</h4>
-              </div>
-              <div class="timeline-body">
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-inverted">
-            <div class="timeline-image">
-              <h4>Be Part
-                <br>Of Our
-                <br>Story!</h4>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- Team -->
 <section class="bg-light page-section" id="team">
@@ -316,15 +119,39 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+        <h3 class="section-subheading text-muted">Team 37</h3>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="team-member">
-          <img class="mx-auto rounded-circle" src="./boostrap/landing-page/img/team/1.jpg" alt="">
-          <h4>Kay Garland</h4>
-          <p class="text-muted">Lead Designer</p>
+          <img class="mx-auto rounded-circle" src="img/1.jpg" alt="">
+          <h4>Rifat</h4>
+          <p class="text-muted">Developer</p>
+          <ul class="list-inline social-buttons">
+            <li class="list-inline-item">
+              <a href="https://twitter.com/rifat151">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.facebook.com/abdullahalrifatcse">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/abdullahalrifat/">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+           <div class="col-sm-3">
+        <div class="team-member">
+          <img class="mx-auto rounded-circle" src="img/2.jpg" alt="">
+          <h4>Faizah</h4>
+          <p class="text-muted">Developer</p>
           <ul class="list-inline social-buttons">
             <li class="list-inline-item">
               <a href="#">
@@ -344,11 +171,11 @@
           </ul>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="team-member">
-          <img class="mx-auto rounded-circle" src="./boostrap/landing-page/img/team/2.jpg" alt="">
-          <h4>Larry Parker</h4>
-          <p class="text-muted">Lead Marketer</p>
+          <img class="mx-auto rounded-circle" src="img/3.jpg" alt="">
+          <h4>Fauzia</h4>
+          <p class="text-muted">Developer</p>
           <ul class="list-inline social-buttons">
             <li class="list-inline-item">
               <a href="#">
@@ -368,11 +195,11 @@
           </ul>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="team-member">
-          <img class="mx-auto rounded-circle" src="./boostrap/landing-page/img/team/3.jpg" alt="">
-          <h4>Diana Pertersen</h4>
-          <p class="text-muted">Lead Developer</p>
+          <img class="mx-auto rounded-circle" src="img/4.jpg" alt="">
+          <h4>Suhala</h4>
+          <p class="text-muted">Developer</p>
           <ul class="list-inline social-buttons">
             <li class="list-inline-item">
               <a href="#">
