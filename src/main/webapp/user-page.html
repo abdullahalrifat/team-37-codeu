@@ -22,6 +22,7 @@ limitations under the License.
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	  <script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
     <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" />
+
   </head>
   <body onload="buildUI();">
     <nav>
@@ -35,7 +36,9 @@ limitations under the License.
 	 <h3> This is a rich text editor. Where user can give any post using table, tags etc. The text editor take bbcode as input and after saving it is converted to html. </h3>
 	<!-- about me form -->
 	<div class="col" id="about-me-container">Loading...</div>
+
 	<br/>
+    <!--
 	<div id="about-me-form" class="hidden" >
 		<form action="/about" method="POST">
 		<textarea name="about-me" id= "about" placeholder="update about me" rows="4" required></textarea>
@@ -43,6 +46,7 @@ limitations under the License.
 		<input type="submit" value="Submit">
 		</form>
 	</div>
+	-->
 	<hr/>
 
     <form id="message-form" action="/messages" method="POST" class="hidden">
@@ -50,16 +54,100 @@ limitations under the License.
       <br/>
       <textarea name="text" id="message-input" onkeyup="checkInput() "></textarea>
       <br/>
+        <label for="autocomplete_search">Place</label>
+        <input type="hidden" name="alat"  id="lat"/>
+        <input type="hidden" name="along"  id="long"/>
+        <input type="text" name="autocomplete_search" id="autocomplete_search" >
+        </br>
+        </br>
+        </br>
       <input type="submit" value="Submit">
     </form>
+    <script>
+        function autocompleteAPI() {
+            var input = document.getElementById( 'autocomplete_search' );
+            var autocomplete = new google.maps.places.Autocomplete( input );
+            getLocation();
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('lat').value=place.geometry['autocomplete_search'].lat();
+                document.getElementById('long').value=place.geometry['autocomplete_search'].lng();
 
- <script>
+            });
+        }
+    </script>
+    <script>
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                // x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function showPosition(position) {
+            var currentLat = position.coords.latitude;
+            var currentLong = position.coords.longitude;
+            // x.innerHTML = "Latitude: " + position.coords.latitude +
+            //    "<br>Longitude: " + position.coords.longitude;
+            document.getElementById('lat').value=currentLat;
+            document.getElementById('long').value=currentLong;
+            codeLatLng(currentLat,currentLong);
+        }
+        function codeLatLng(lat, lng) {
+
+            var latlng = new google.maps.LatLng(lat, lng);
+            geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({'latLng': latlng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results)
+                    if (results[1]) {
+                        //formatted address
+                        //alert(results[0].formatted_address);
+                        //find country name
+                        for (var i=0; i<results[0].address_components.length; i++) {
+                            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+
+                                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                                if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+                                    //this is the object you are looking for
+                                    city= results[0].address_components[i];
+                                    break;
+                                }
+                            }
+                        }
+                        //city data
+                        //alert(city.short_name + " " + city.long_name);
+                        document.getElementById('autocomplete_search').value=city.short_name;
+
+
+                    } else {
+                        //alert("No results found");
+                    }
+                } else {
+                    alert("Geocoder failed due to: " + status);
+                }
+            });
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI">
+    </script>
+
+
+    <script>
  $(function() {
 	 $("#message-input").wysibb();
 	 })
 </script>
     <hr/>
-	
+	<!--
 	<form id="image-form" method="POST" class="hidden" enctype="multipart/form-data">
       <p>Text:</p>
       <br/>
@@ -80,7 +168,7 @@ limitations under the License.
       <input id = "submit" type="submit" value="Submit" disabled>
     </form>
     <hr/>
-	
+	-->
     <div id="message-container">Loading...</div>
 
   </body>
