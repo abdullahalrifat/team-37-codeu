@@ -92,8 +92,22 @@ function fetchBlobstoreUrlAndShowForm() {
 		.then((imageUploadUrl) => {
 			const messageForm = document.getElementById('image-form');
 			messageForm.action = imageUploadUrl;
-			//messageForm.classList.remove('hidden');
 		});
+}
+
+function uploadFile() {
+     if (window.File && window.FileList) {
+      var fd = new FormData();
+      var files = document.getElementById('image-form').files;
+      for (var i = 0; i < files.length; i++) {  
+        fd.append("file"+i, files[i]);
+      }
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", document.getElementById('image-form').action);
+      xhr.send(fd);
+    } else {
+      document.getElementById('image-form').submit();
+	}
 }
 
 /** Check if Text Field is empty. */
@@ -136,6 +150,5 @@ function buildUI() {
   fetchBlobstoreUrlAndShowForm();
   //checkInput() ;
   fetchMessages();
-  
   //fetchAboutMe();
 }
