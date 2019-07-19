@@ -43,6 +43,7 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
+		  document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
 }
@@ -67,6 +68,8 @@ function fetchMessages() {
         });
       });
 }
+
+
 
 /** fetches about me*/
 function fetchAboutMe(){
@@ -93,31 +96,19 @@ function fetchBlobstoreUrlAndShowForm() {
 			const messageForm = document.getElementById('image-form');
 			messageForm.action = imageUploadUrl;
 		});
-}
 
-function uploadFile() {
-     if (window.File && window.FileList) {
-      var fd = new FormData();
-      var files = document.getElementById('image-form').files;
-      for (var i = 0; i < files.length; i++) {  
-        fd.append("file"+i, files[i]);
-      }
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", document.getElementById('image-form').action);
-      xhr.send(fd);
-    } else {
-      document.getElementById('image-form').submit();
-	}
 }
 
 /** Check if Text Field is empty. */
 
 function checkInput() {
-	if (document.getElementById('message-input').value.length == 0) 
+	if(document.getElementById('message-input').value.length == 0) { 
             document.getElementById('submit').disabled = true; 
-		else
+        } else { 
             document.getElementById('submit').disabled = false;
+        }
 }
+
 
 /**
  * Builds an element that displays the message.
@@ -147,7 +138,7 @@ function buildMessageDiv(message) {
 function buildUI() {
   setPageTitle();
   //showMessageFormIfViewingSelf();
-  fetchBlobstoreUrlAndShowForm();
+  fetchBlobstoreUrlAndShowForm(); 
   //checkInput() ;
   fetchMessages();
   //fetchAboutMe();
