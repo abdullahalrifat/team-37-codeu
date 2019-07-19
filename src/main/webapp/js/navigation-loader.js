@@ -61,9 +61,6 @@ function addLoginOrLogoutLinkToNavigation() {
       navigationElement.appendChild(
                 createListItem(createLink('/guide-reg.html', 'Guide Registration')));
 
-      navigationElement.appendChild(
-                createListItem(createLink('/guide-reg.html', 'Guide Registration')));
-
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
         } else {
