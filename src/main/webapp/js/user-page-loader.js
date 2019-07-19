@@ -95,7 +95,6 @@ function fetchBlobstoreUrlAndShowForm() {
 		.then((imageUploadUrl) => {
 			const messageForm = document.getElementById('image-form');
 			messageForm.action = imageUploadUrl;
-			messageForm.classList.remove('hidden');
 		});
 
 }
@@ -150,8 +149,9 @@ function buildMessageDiv(message) {
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
-  showMessageFormIfViewingSelf();
-  checkInput() ;
+  //showMessageFormIfViewingSelf();
+  fetchBlobstoreUrlAndShowForm(); 
+  //checkInput() ;
   fetchMessages();
-  fetchAboutMe();
+  //fetchAboutMe();
 }
