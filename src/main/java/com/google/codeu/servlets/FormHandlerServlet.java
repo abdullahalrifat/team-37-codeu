@@ -14,6 +14,7 @@ import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletOutputStream;
@@ -64,10 +65,14 @@ public class FormHandlerServlet extends HttpServlet {
 	String userMessage = request.getParameter("message");
 
     // // Get the URL of the image that the user uploaded to Blobstore.
-    String imageUrl = getUploadedFileUrl(request, "image");
-	if  (imageUrl != null) {
-		imageUrl = "<a href=\"" + imageUrl + "\">" + "<img src=\"" + imageUrl + "\" />" + "</a>";
-		userMessage = userMessage + imageUrl;
+    List <String> imageUrls = getUploadedFileUrl(request, "image");
+	//for (String imageUrl: imageUrls) {System.out.println(imageUrl);}
+	
+	if (imageUrls != null) {
+		for (String imageUrl: imageUrls) {
+				imageUrl = "<a href=\"" + imageUrl + "\">" + "<img src=\"" + imageUrl + "\" />" + "</a>";
+				userMessage = userMessage + imageUrl;
+		}
 	}
 	
 	Message message = new Message(user, userMessage);
@@ -79,32 +84,42 @@ public class FormHandlerServlet extends HttpServlet {
   /**
    * Returns a URL that points to the uploaded file, or null if the user didn't upload a file.
    */
-  private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName){
+  private List <String> getUploadedFileUrl(HttpServletRequest request, String formInputElementName){
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get("image");
-
-    // User submitted form without selecting a file, so we can't get a URL. (devserver)
+	List<String> imageUrls = new ArrayList <String>();
+	int v = 0;
+	
+	// User submitted form without selecting a file, so we can't get a URL. (devserver)
     if(blobKeys == null || blobKeys.isEmpty()) {
       return null;
     }
 
-    // Our form only contains a single file input, so get the first index.
-    BlobKey blobKey = blobKeys.get(0);
-
-    // User submitted form without selecting a file, so we can't get a URL. (live server)
-    BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-    if (blobInfo.getSize() == 0) {
-      blobstoreService.delete(blobKey);
-      return null;
-    }
-
-    // We could check the validity of the file here, e.g. to make sure it's an image file
-    // https://stackoverflow.com/q/10779564/873165
-
-    // Use ImagesService to get a URL that points to the uploaded file.
-    ImagesService imagesService = ImagesServiceFactory.getImagesService();
-    ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-    return imagesService.getServingUrl(options);
+	//blobs.forEach((k,v)-> {
+	for (String k: blobs.keySet()) {
+		 System.out.println("Key : " + k + " Val : " + blobs.get(k));
+		 System.out.println("Length of  List<BlobKey> blobKeys: " + blobKeys.size());
+		 
+		 for (BlobKey blobKey: blobKeys)	{
+			 System.out.println(blobKey);
+			 
+			BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+			if (blobInfo.getSize() == 0) {
+			  blobstoreService.delete(blobKey);
+			  v = 1;
+			  break;
+			}
+			
+			ImagesService imagesService = ImagesServiceFactory.getImagesService();
+			ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+			
+			System.out.println(imagesService.getServingUrl(options));
+			imageUrls.add(imagesService.getServingUrl(options));
+		}
+	}
+	
+	if (v == 0) return imageUrls;
+	return null;
   }
 }
