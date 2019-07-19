@@ -117,8 +117,8 @@ public class ImageAnalysisServlet extends HttpServlet {
     //out.println("</ul>");
 	userMessage = userMessage + "</ul>";
 	
-	Message message = new Message(user, userMessage);
-	datastore.storeMessage(message);
+	//Message message = new Message(user, userMessage);
+	//datastore.storeMessage(message);
 	response.sendRedirect("/user-page.html?user=" + user);
   }
 

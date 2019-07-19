@@ -32,6 +32,7 @@ function setPageTitle() {
 /**
  * Shows the message form if the user is logged in and viewing their own page.
  */
+ 
 function showMessageFormIfViewingSelf() {
   fetch('/login-status')
       .then((response) => {
@@ -42,7 +43,7 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
-		  document.getElementById('about-me-form').classList.remove('hidden');
+		  //document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
 }
@@ -67,6 +68,8 @@ function fetchMessages() {
         });
       });
 }
+
+
 
 /** fetches about me*/
 function fetchAboutMe(){
@@ -97,17 +100,14 @@ function fetchBlobstoreUrlAndShowForm() {
 
 }
 
+/** Check if Text Field is empty. */
 
-function analysis() {
-	fetch('/blobstore-upload-url-analysis')
-		.then((response) => {
-			return response.text();
-		})
-		.then((imageUploadUrl) => {
-			const messageForm = document.getElementById('image-analysis-form');
-			messageForm.action = imageUploadUrl;
-			messageForm.classList.remove('hidden');
-		});
+function checkInput() {
+	if(document.getElementById('message-input').value.length == 0) { 
+            document.getElementById('submit').disabled = true; 
+        } else { 
+            document.getElementById('submit').disabled = false;
+        }
 }
 
 
@@ -116,21 +116,34 @@ function analysis() {
  * @param {Message} message
  * @return {Element}
  */
+ 
 function buildMessageDiv(message) {
-  const headerDiv = document.createElement('div');
-  headerDiv.classList.add('message-header');
-  headerDiv.appendChild(document.createTextNode(
-      message.user + ' - ' + new Date(message.timestamp)));
-
-  const bodyDiv = document.createElement('div');
-  bodyDiv.classList.add('message-body');
-  bodyDiv.innerHTML = message.text;
-
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message-div');
-  messageDiv.appendChild(headerDiv);
-  messageDiv.appendChild(bodyDiv);
-
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('qa-message-list');
+    messageDiv.innerHTML = ' <div class="message-item" id="m1">\n' +
+        '            <div class="message-inner">\n' +
+        '                <div class="message-head clearfix">\n' +
+        '                    <div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=admin"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>\n' +
+        '                    <div class="user-detail">\n' +
+        '                        <h5 class="handle">'+message.user +'</h5>\n' +
+        '                        <div class="post-meta">\n' +
+        '                            <div class="asker-meta">\n' +
+        '                                <span class="qa-message-what"></span>\n' +
+        '                                <span class="qa-message-when">\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-when-data">'+ new Date(message.timestamp)+'</span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t</span>\n' +
+        '                                <span class="qa-message-who">\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-pad">by </span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=admin">'+message.user +'</a></span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t</span>\n' +
+        '                            </div>\n' +
+        '                        </div>\n' +
+        '                    </div>\n' +
+        '                </div>\n' +
+        '                <div class="qa-message-content">\n' +
+        message.text+
+        '                </div>\n' +
+        '            </div></div>';
   return messageDiv;
 }
 
@@ -138,8 +151,7 @@ function buildMessageDiv(message) {
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
-  fetchBlobstoreUrlAndShowForm();
-  analysis() ;
+  checkInput() ;
   fetchMessages();
   fetchAboutMe();
 }

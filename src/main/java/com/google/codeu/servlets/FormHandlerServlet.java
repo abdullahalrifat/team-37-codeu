@@ -70,9 +70,9 @@ public class FormHandlerServlet extends HttpServlet {
 		userMessage = userMessage + imageUrl;
 	}
 	
-	Message message = new Message(user, userMessage);
+	//Message message = new Message(user, userMessage);
 	
-	datastore.storeMessage(message);
+	//datastore.storeMessage(message);
 	response.sendRedirect("/user-page.html?user=" + user);
   }
 

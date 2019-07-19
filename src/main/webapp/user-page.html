@@ -1,44 +1,57 @@
 <!--
 Copyright 2019 Google Inc.
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>User Page</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/user-page.css">
-    <script src="/js/user-page-loader.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	  <script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
-    <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" />
-  </head>
-  <body onload="buildUI();">
-    <nav>
-      <ul id="navigation">
-        <li><a href="/">Home</a></li>
-        <li><a href="/aboutus.html">About Our Team</a></li>
-      </ul>
-    </nav>
+<html lang="en">
 
-    <h1 id="page-title">User Page</h1>
-	 <h3> This is a rich text editor. Where user can give any post using table, tags etc. The text editor take bbcode as input and after saving it is converted to html. </h3>
-	<!-- about me form -->
-	<div class="col" id="about-me-container">Loading...</div>
-	<br/>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CodeU 2019 Starter Project</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./boostrap/landing-page/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <!-- Custom styles for this template -->
+  <link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
+  <link href="./css/timeline.css" rel="stylesheet">
+  <script src="./js/navigation-loader.js"></script>
+  <script src="./js/user-page-loader.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+  <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" />
+  </head>
+  <body id="page-top" onload="addLoginOrLogoutLinkToNavigation();buildUI();">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto" id="navigation">
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+    <!--
 	<div id="about-me-form" class="hidden" >
 		<form action="/about" method="POST">
 		<textarea name="about-me" id= "about" placeholder="update about me" rows="4" required></textarea>
@@ -46,23 +59,130 @@ limitations under the License.
 		<input type="submit" value="Submit">
 		</form>
 	</div>
-	<hr/>
+	-->
+  <header class="masthead">
+    <div class="container">
+      <div class="intro-text">
+        <h1 id="page-title">User Page</h1>
+        <h3> This is a rich text editor. Where user can give any post using table, tags etc. The text editor take bbcode as input and after saving it is converted to html. </h3>
+      </div>
 
-    <form id="message-form" action="/messages" method="POST" class="hidden">
-      <p>Enter a new message:</p>
-      <br/>
-      <textarea name="text" id="message-input"></textarea>
-      <br/>
-      <input type="submit" value="Submit">
-    </form>
+    </div>
+  </header>
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <form id="message-form" action="/messages" method="POST" class="hidden">
+            <p>Enter a new message:</p>
+            <br/>
+            <textarea name="text" id="message-input" onkeyup="checkInput() "></textarea>
+            <br/>
 
- <script>
+            <input type="hidden" name="alat"  id="lat"/>
+            <input type="hidden" name="along"  id="long"/>
+            <div class="row">
+              <label for="autocomplete_search"style="color: white">Place:  </label>
+              <input type="text" name="autocomplete_search" id="autocomplete_search" >
+            </div>
+
+
+            <input id="submit" name="submit" type="submit" value="Submit">
+          </form>
+          </br>
+          </br>
+          </br>
+          <div id="message-container">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <script>
+        function autocompleteAPI() {
+            var input = document.getElementById( 'autocomplete_search' );
+            var autocomplete = new google.maps.places.Autocomplete( input );
+            getLocation();
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('lat').value=place.geometry['autocomplete_search'].lat();
+                document.getElementById('long').value=place.geometry['autocomplete_search'].lng();
+
+            });
+        }
+    </script>
+    <script>
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                // x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function showPosition(position) {
+            var currentLat = position.coords.latitude;
+            var currentLong = position.coords.longitude;
+            // x.innerHTML = "Latitude: " + position.coords.latitude +
+            //    "<br>Longitude: " + position.coords.longitude;
+            document.getElementById('lat').value=currentLat;
+            document.getElementById('long').value=currentLong;
+            codeLatLng(currentLat,currentLong);
+        }
+        function codeLatLng(lat, lng) {
+
+            var latlng = new google.maps.LatLng(lat, lng);
+            geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({'latLng': latlng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results)
+                    if (results[1]) {
+                        //formatted address
+                        //alert(results[0].formatted_address);
+                        //find country name
+                        for (var i=0; i<results[0].address_components.length; i++) {
+                            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+
+                                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                                if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+                                    //this is the object you are looking for
+                                    city= results[0].address_components[i];
+                                    break;
+                                }
+                            }
+                        }
+                        //city data
+                        //alert(city.short_name + " " + city.long_name);
+                        document.getElementById('autocomplete_search').value=city.short_name;
+
+
+                    } else {
+                        //alert("No results found");
+                    }
+                } else {
+                    alert("Geocoder failed due to: " + status);
+                }
+            });
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI">
+    </script>
+
+
+    <script>
  $(function() {
 	 $("#message-input").wysibb();
 	 })
 </script>
     <hr/>
-	
+	<!--
 	<form id="image-form" method="POST" class="hidden" enctype="multipart/form-data">
       <p>Text:</p>
       <br/>
@@ -80,15 +200,13 @@ limitations under the License.
       <br/>
       <textarea name="message"></textarea>
       <br/>
-      <p>Upload an image for analysis:</p>
-      <input type="file" name="image">
-      <br/><br/>
-      <button>Analyze</button>
+      <input id = "submit" type="submit" value="Submit" disabled>
     </form>
     <hr/>
-	
-    <div id="message-container">Loading...</div>
+	-->
+
 
   </body>
 </html>
 <jsp:include page="response.jsp"/>
+

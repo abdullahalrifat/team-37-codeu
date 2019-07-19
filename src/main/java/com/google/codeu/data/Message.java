@@ -25,20 +25,26 @@ public class Message {
   private UUID id;
   private String user;
   private String text;
+  private String city;
+  private double alat;
+  private double along;
   private long timestamp;
 
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
-  public Message(String user, String text) {
-    this(UUID.randomUUID(), user, text, System.currentTimeMillis());
+  public Message(String user, String text,String city,double alat,double along) {
+    this(UUID.randomUUID(), user, text,city,alat,along, System.currentTimeMillis());
   }
 
-  public Message(UUID id, String user, String text, long timestamp) {
+  public Message(UUID id, String user, String text,String city,double alat,double along, long timestamp) {
     this.id = id;
     this.user = user;
     this.text = text;
+    this.city=city;
+    this.alat=alat;
+    this.along=along;
     this.timestamp = timestamp;
   }
 
@@ -54,6 +60,30 @@ public class Message {
 
   public String getText() {
     return text;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public double getAlat() {
+    return alat;
+  }
+
+  public void setAlat(double alat) {
+    this.alat = alat;
+  }
+
+  public double getAlong() {
+    return along;
+  }
+
+  public void setAlong(double along) {
+    this.along = along;
   }
 
   public long getTimestamp() {
