@@ -1,113 +1,140 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Guide Registration</title>
-	<style>
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
 
-li {
-  float: left;
-}
+    <!-- Bootstrap core CSS -->
+    <link href="./boostrap/landing-page/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+    <!-- Custom fonts for this template -->
+    <link href="./boostrap/landing-page/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-li a:hover {
-  background-color: #111;
-}
+    <!-- Custom styles for this template -->
+    <link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
 
-input[type=text] {
-  width: 40%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 40%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-
-select{
-	width: 40%;
-	padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-}
-</style>
 </head>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<body>
+<body id="page-top" onload="addLoginOrLogoutLinkToNavigation();">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto" id="navigation">
+            </ul>
+        </div>
+    </div>
+</nav>
+<header class="masthead">
+    <div class="container">
+        <div class="intro-text">
+    <h5 > This Form is used to store the information about the guide. Tourist guide can register here. Travellers can get the information about the guide before visiting any place. There is a guide list which contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). </h5>
+    <form style="margin: 100px;" action="/guides" method="POST">
+      <input type="hidden" name="alat"  id="lat"/>
+      <input type="hidden" name="along"  id="long"/>
 
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/aboutus.html">About Our Team</a></li>
-			<li><a href="/guide-reg.html">Guide Registration</a></li>
-		</ul>
- <h3> This Form is used to store the information about the guide. Tourist guide can register here. Travellers can get the information about the guide before visiting any place. There is a guide list which contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). </h3>
-		<form style="margin: 100px;" action="/guides" method="POST">
-			<input type="hidden" name="alat"  id="lat"/>
-			<input type="hidden" name="along"  id="long"/>
+      Name:
+      </br>
+      <input class="form-control" type="text" name="name" id="name" required="">
+      </br>
+      Address:
+      </br>
+      <input class="form-control" type="text" name="address"  id="autocomplete_address" required="">
+      </br>
+      Contact No:
+      </br>
+      <input class="form-control" type="number" name="contact_no"  id="contact_no" required="">
+      </br>
+      Gender:
+      </br>
+      <select class="form-control" id="gender" name="gender" required="">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+      </select>
+      </br>
+      Area of the Guide:
+      </br>
+      <input class="form-control" type="text" name="location" id="autocomplete_search"  required="">
+      </br>
+      Charge(Per hour):
+      </br>
+      <input class="form-control" type="number" name="charge"  id="charge" required=""><label> Taka (BDT)</label>
+      </br>
+      <input class="btn btn-success form-control" type="submit" value="Submit">
+    </form>
+        </div>
 
-			Name:
-			</br>
-			<input type="text" name="name" id="name" >
-			</br>
-			Address:
-			</br>
-			<input type="text" name="address"  id="address">
-			</br>
-			Contact No:
-			</br>
-			<input type="text" name="contact_no"  id="contact_no">
-			</br>
-			Gender:
-			</br>
-			<select id="gender" name="gender">
-				<option value="Male">Male</option>
-				<option value="Female">Female</option>
-				<option value="Others">Others</option>
-			</select>
-			</br>
-			Area of the Guide:
-			</br>
-			<input type="text" name="location" id="autocomplete_search" >
-			</br>
-			Charge(Per hour):
-			</br>
-			<input type="text" name="charge"  id="charge"><label> Taka (BDT)</label>
-			</br>
-			<input type="submit" value="Submit">
-		</form>
-		<script>
-		function autocompleteAPI() {
-			var input = document.getElementById( 'autocomplete_search' );
-			var autocomplete = new google.maps.places.Autocomplete( input );
-			autocomplete.addListener('place_changed', function () {
-				var place = autocomplete.getPlace();
-				document.getElementById('lat').value=place.geometry['location'].lat();
-				document.getElementById('long').value=place.geometry['location'].lng();
+    </div>
+</header>
 
-				
-			});
-		}
-	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI"></script>
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <span class="copyright">Copyright &copy; Your Website 2019</span>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li class="list-inline-item">
+                        <a href="#">Privacy Policy</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+        function autocompleteAPI() {
+            var input = document.getElementById( 'autocomplete_search' );
+            var autocomplete = new google.maps.places.Autocomplete( input );
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('lat').value=place.geometry['location'].lat();
+                document.getElementById('long').value=place.geometry['location'].lng();       
+            });
+
+            var input1 = document.getElementById( 'autocomplete_address' );
+            var autocomplete1 = new google.maps.places.Autocomplete( input1 );
+            autocomplete1.addListener('place_changed', function () {
+                var addr = autocomplete1.getPlace();
+                document.getElementById('alat').value=addr.geometry['address'].lat();
+                document.getElementById('along').value=addr.geometry['address'].lng();       
+            });
+        }
+</script>
+        <script src="./js/navigation-loader.js"></script>
+    <script src="./js/mates-loader.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI"></script>
 </body>
 </html>

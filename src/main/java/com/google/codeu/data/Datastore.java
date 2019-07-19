@@ -214,7 +214,7 @@ public class Datastore {
                 //String text = (String) entity.getProperty("text");
                 String name = (String) entity.getProperty("name");
                 String address = (String) entity.getProperty("address");
-                double contact_no = (Double) entity.getProperty("contact_no");
+                String contact_no = (String) entity.getProperty("contact_no");
                 String gender = (String) entity.getProperty("gender");
                 String location = (String) entity.getProperty("location");
                 double charge = (Double) entity.getProperty("charge");

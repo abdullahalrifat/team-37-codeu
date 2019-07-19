@@ -53,39 +53,15 @@ public class GuideServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        // response.setContentType("application/json");
+
         response.setContentType("text/html");
 
         List<Guides> guides = datastore.getAllGuide();
-        // System.out.println("get method");
-        // System.out.println(guides.get(0).getTimestamp());
 
-        // Gson gson = new Gson();
-        // String json = gson.toJson(guides);
-
-        // request.setAttribute("guides", json);
         request.setAttribute("guides", guides);
         request.setAttribute("guidesCount", guides.size());
 
         request.getRequestDispatcher("/guide-list.jsp").forward(request,response);
-
-        // RequestDispatcher rd = request.getRequestDispatcher("/guide-list.jsp");
-        // rd.forward(request, response);
-
-        // response.getWriter().println(json);
-        // request.setAttribute('guides', guides);
-        // RequestDispatcher rd = request.getRequestDispatcher("guide-list.jsp");
-        // rd.forward(request, response);
-        /*try {
-            // code that throws an Exception
-            rd.forward(request, response);
-            // rd.include(request, response);
-        } catch (Exception e) {
-            // throw new ServletException(e);
-            System.println.out('hello world');
-        }*/
-        // request.getRequestDispatcher("/guide-list.jsp").forward(request, response);
-        // System.out.println('hello world');
     }
 
     /** Stores a new {@link Message}. */
@@ -94,7 +70,7 @@ public class GuideServlet extends HttpServlet {
 
         String name = Jsoup.clean(request.getParameter("name"), Whitelist.none());
         String address = Jsoup.clean(request.getParameter("address"), Whitelist.none());
-        double contact_no = Double.parseDouble(request.getParameter("contact_no"));
+        String contact_no = Jsoup.clean(request.getParameter("contact_no"), Whitelist.none());
         String gender = Jsoup.clean(request.getParameter("gender"), Whitelist.none());
         String location = Jsoup.clean(request.getParameter("location"), Whitelist.none());
         double charge = Double.parseDouble(request.getParameter("charge"));
