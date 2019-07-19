@@ -218,9 +218,11 @@ public class Datastore {
                 String gender = (String) entity.getProperty("gender");
                 String location = (String) entity.getProperty("location");
                 double charge = (Double) entity.getProperty("charge");
+                double alat = (Double) entity.getProperty("alat");
+                double along = (Double) entity.getProperty("along");
                 long timestamp = (long) entity.getProperty("timestamp");
 
-                Guides guide = new Guides(id, name, address, contact_no, gender, location, charge, timestamp);
+                Guides guide = new Guides(id, name, address, contact_no, gender, location, charge, alat, along, timestamp);
                 guides.add(guide);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
@@ -240,6 +242,8 @@ public class Datastore {
         messageEntity.setProperty("gender", guide.getGender());
         messageEntity.setProperty("location", guide.getLocation());
         messageEntity.setProperty("charge", guide.getCharge());
+        messageEntity.setProperty("alat", guide.getLat());
+        messageEntity.setProperty("along", guide.getLong());
         messageEntity.setProperty("timestamp", guide.getTimestamp());
 
         datastore.put(messageEntity);
