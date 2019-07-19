@@ -182,6 +182,26 @@ limitations under the License.
 	 })
 </script>
     <hr/>
+
+
+	<form id="image-form" method="POST" enctype="multipart/form-data">
+      <div class="upload-btn-wrapper">
+			<input id="photo" type="file" name="image" multiple>
+			<button>Photo</button>
+			<!-- <input id="album" type="file" name="image" multiple> -->
+			<!-- <button>Album</button> -->
+			<!-- <input id="video" type="file" name="image" multiple> -->
+			<!-- <button>Video</button> -->
+			<!-- <input id="location" type="file" name="file4"> -->
+			<!-- <button>Location</button> -->
+	  </div>
+	  <br/>
+      <textarea name="message" id="message-input" placeholder="write something" ></textarea>
+	  <br/>
+      <input id = "submit" type="submit" value="Submit">
+    </form>
+    <hr/>
+
 	<!--
 	<form id="image-form" method="POST" class="hidden" enctype="multipart/form-data">
       <p>Text:</p>
