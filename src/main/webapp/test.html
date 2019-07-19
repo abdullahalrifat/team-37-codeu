@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CodeU 2019 Starter Project</title>
+  <title>Guide Registration</title>
 
   <!-- Bootstrap core CSS -->
   <link href="./boostrap/landing-page/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,32 +30,13 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="">Sleepy Nomads</a>
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
       <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav text-uppercase ml-auto" id="navigation">
-        <!--
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="./aboutus.html">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#team">Team</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-        </li>
-        -->
       </ul>
     </div>
   </div>
@@ -72,164 +53,50 @@
   </div>
 </header>
 
-<!-- Services -->
-<!-- Services -->
-<section class="page-section" id="services">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading text-uppercase">Services</h2>
-        <h3 class="section-subheading text-muted">Make Your Travel More Fun</h3>
-      </div>
-    </div>
-    <div class="row text-center">
-      <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-users fa-stack-1x fa-inverse"></i>
-          </span>
-        <h4 class="service-heading">Travel Mate</h4>
-        <p class="text-muted">Get A Travel Partner where ever you go. you can find people's who are travelling to the same destination you are</p>
-      </div>
-      <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-car fa-stack-1x fa-inverse"></i>
-          </span>
-        <h4 class="service-heading">Travel Guide</h4>
-        <p class="text-muted">Don't know the place you are travelling to ? Don't worry we will find you a travel guide for your travelling location</p>
-      </div>
-      <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-blog fa-stack-1x fa-inverse"></i>
-          </span>
-        <h4 class="service-heading">Travel Blog</h4>
-        <p class="text-muted">No Matter where you go you can create your travel blog or read other's blog</p>
-      </div>
-    </div>
-  </div>
-</section>
 
+ <h3> This Form is used to store the information about the guide. Tourist guide can register here. Travellers can get the information about the guide before visiting any place. There is a guide list which contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). </h3>
+    <form style="margin: 100px;" action="/guides" method="POST">
+      <input type="hidden" name="alat"  id="lat"/>
+      <input type="hidden" name="along"  id="long"/>
 
-
-<!-- Team -->
-<section class="bg-light page-section" id="team">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-        <h3 class="section-subheading text-muted">Team 37</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="team-member">
-          <img class="mx-auto rounded-circle" src="img/1.jpg" alt="">
-          <h4>Rifat</h4>
-          <p class="text-muted">Developer</p>
-          <ul class="list-inline social-buttons">
-            <li class="list-inline-item">
-              <a href="https://twitter.com/rifat151">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://www.facebook.com/abdullahalrifatcse">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://www.linkedin.com/in/abdullahalrifat/">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-           <div class="col-sm-3">
-        <div class="team-member">
-          <img class="mx-auto rounded-circle" src="img/2.jpg" alt="">
-          <h4>Faizah</h4>
-          <p class="text-muted">Developer</p>
-          <ul class="list-inline social-buttons">
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="team-member">
-          <img class="mx-auto rounded-circle" src="img/3.jpg" alt="">
-          <h4>Fauzia</h4>
-          <p class="text-muted">Developer</p>
-          <ul class="list-inline social-buttons">
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="team-member">
-          <img class="mx-auto rounded-circle" src="img/4.jpg" alt="">
-          <h4>Suhala</h4>
-          <p class="text-muted">Developer</p>
-          <ul class="list-inline social-buttons">
-            <li class="list-inline-item">
-              <a href="https://twitter.com/suhala_lamia">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://www.facebook.com/profile.php?id=100005483654735">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://www.linkedin.com/in/suhala-lamia-26373b127/">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
+      Name:
+      </br>
+      <input type="text" name="name" id="name" >
+      </br>
+      Address:
+      </br>
+      <input type="text" name="address"  id="address">
+      </br>
+      Contact No:
+      </br>
+      <input type="text" name="contact_no"  id="contact_no">
+      </br>
+      Gender:
+      </br>
+      <select id="gender" name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+      </select>
+      </br>
+      Area of the Guide:
+      </br>
+      <input type="text" name="location" id="autocomplete_search" >
+      </br>
+      Charge(Per hour):
+      </br>
+      <input type="text" name="charge"  id="charge"><label> Taka (BDT)</label>
+      </br>
+      <input type="submit" value="Submit">
+    </form>
+    
 
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <span class="copyright">Copyright &copy; Sleepy Nomads 2019</span>
+        <span class="copyright">Copyright &copy; Your Website 2019</span>
       </div>
       <div class="col-md-4">
         <ul class="list-inline social-buttons">
@@ -473,7 +340,20 @@
 <!-- Bootstrap core JavaScript -->
 <script src="./boostrap/landing-page/vendor/jquery/jquery.min.js"></script>
 <script src="./boostrap/landing-page/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+    function autocompleteAPI() {
+      var input = document.getElementById( 'autocomplete_search' );
+      var autocomplete = new google.maps.places.Autocomplete( input );
+      autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+        document.getElementById('lat').value=place.geometry['location'].lat();
+        document.getElementById('long').value=place.geometry['location'].lng();
 
+        
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI"></script>
 <!-- Plugin JavaScript -->
 <script src="./boostrap/landing-page/vendor/jquery-easing/jquery.easing.min.js"></script>
 

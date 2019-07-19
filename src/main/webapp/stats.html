@@ -1,50 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Stats</title>
-  <link rel="stylesheet" href="/css/main.css">
-  
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CodeU 2019 Starter Project</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./boostrap/landing-page/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="./boostrap/landing-page/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
+  <script src="./js/navigation-loader.js"></script>
   <script>
-    // Fetch stats and display them in the page.
-    function fetchStats(){
-      const url = '/stats';
-      fetch(url).then((response) => {
-        return response.json();
-      }).then((stats) => {
-        const statsContainer = document.getElementById('stats-container');
-        statsContainer.innerHTML = '';
-		
-        const messageCountElement = buildStatElement('Message count: ' + stats.messageCount);
-        statsContainer.appendChild(messageCountElement);
-		
-        const averageMessageLengthElement = buildStatElement('Average Message Length: ' + stats.averageMessageLength);
-        statsContainer.appendChild(averageMessageLengthElement);
-		
-		const userCountElement = buildStatElement('User count: ' + stats.userCount);
-        statsContainer.appendChild(userCountElement);
-		
-		const mostActiveUserElement = buildStatElement('Most Active User: ' + stats.mostActiveUser);
-		statsContainer.appendChild(mostActiveUserElement);
-	
-      });
-    }
-    function buildStatElement(statString){
-     const statElement = document.createElement('p');
-     statElement.appendChild(document.createTextNode(statString));
-     return statElement;
-    }
-    // Fetch data and populate the UI of the page.
-    function buildUI(){
-     fetchStats();
-    }
+      // Fetch stats and display them in the page.
+      function fetchStats(){
+          const url = '/stats';
+          fetch(url).then((response) => {
+              return response.json();
+          }).then((stats) => {
+              const statsContainer = document.getElementById('stats-container');
+              statsContainer.innerHTML = '';
+
+              const messageCountElement = buildStatElement('Message count: ' + stats.messageCount);
+              statsContainer.appendChild(messageCountElement);
+
+              const averageMessageLengthElement = buildStatElement('Average Message Length: ' + stats.averageMessageLength);
+              statsContainer.appendChild(averageMessageLengthElement);
+
+              const userCountElement = buildStatElement('User count: ' + stats.userCount);
+              statsContainer.appendChild(userCountElement);
+
+              const mostActiveUserElement = buildStatElement('Most Active User: ' + stats.mostActiveUser);
+              statsContainer.appendChild(mostActiveUserElement);
+
+          });
+      }
+      function buildStatElement(statString){
+          const statElement = document.createElement('p');
+          statElement.appendChild(document.createTextNode(statString));
+          return statElement;
+      }
+      // Fetch data and populate the UI of the page.
+      function buildUI(){
+          fetchStats();
+      }
   </script>
 </head>
-<body onload="buildUI()">
-<div id="content">
-  <h1>Site Statistics</h1>
-  <hr/>
-  <div id="stats-container">Loading...</div>
-</div>
+<body id="page-top" onload="addLoginOrLogoutLinkToNavigation();buildUI();" >
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="">Sleepy Nomads</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav text-uppercase ml-auto" id="navigation">
+      </ul>
+    </div>
+  </div>
+</nav>
+<header class="masthead">
+  <div class="container">
+    <div class="intro-text">
+      <h1>Site Statistics</h1>
+      <hr/>
+      <div id="stats-container">Loading...</div>
+    </div>
+  </div>
+</header>
+
 </body>
-</html>
 </html>

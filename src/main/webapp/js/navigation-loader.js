@@ -34,7 +34,7 @@ function addLoginOrLogoutLinkToNavigation() {
           navigationElement.appendChild(
               createListItem(createLink(
               '/user-page.html?user=' + loginStatus.username, 'Your Page')));
-            
+
           navigationElement.appendChild(
               createListItem(createLink(
                 '/stats.html', 'Page Stats')));
@@ -54,10 +54,13 @@ function addLoginOrLogoutLinkToNavigation() {
             navigationElement.appendChild(
                 createListItem(createLink(
                     '/aboutus.html', 'About')));
-					
+
 			navigationElement.appendChild(
                 createListItem(createLink(
                     '/chart.html', 'Charts')));
+
+      navigationElement.appendChild(
+                createListItem(createLink('/guide-reg.html', 'Guide Registration')));
 
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
@@ -70,9 +73,6 @@ function addLoginOrLogoutLinkToNavigation() {
 
             navigationElement.appendChild(
                 createListItem(createLink('#contact', 'Contact')));
-				    
-            navigationElement.appendChild(
-                createListItem(createLink('/guide-reg.jsp', 'Guide Registration')));
 
 			navigationElement.appendChild(
                 createListItem(createLink(
