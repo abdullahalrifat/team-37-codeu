@@ -85,8 +85,10 @@ public class MessageServlet extends HttpServlet {
 	  String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 	  TextProcessor processor = BBProcessorFactory.getInstance().create();
 	  String input= processor.process( text ) ;
-
-	  Message message = new Message(user, input);
+      String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
+      double alat = Double.parseDouble(request.getParameter("alat"));
+      double along = Double.parseDouble(request.getParameter("along"));
+	  Message message = new Message(user, input,city,alat,along);
 	  datastore.storeMessage(message);
 
 
