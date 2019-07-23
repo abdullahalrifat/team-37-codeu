@@ -57,10 +57,7 @@ public class GuideServlet extends HttpServlet {
         response.setContentType("text/html");
 
         List<Guides> guides = datastore.getAllGuide();
-
         request.setAttribute("guides", guides);
-        request.setAttribute("guidesCount", guides.size());
-
         request.getRequestDispatcher("/guide-list.jsp").forward(request,response);
     }
 
