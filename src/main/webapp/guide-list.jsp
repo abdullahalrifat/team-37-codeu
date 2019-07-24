@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.google.codeu.data.Guides" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +30,9 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="">Sleepy Nomads</a>
+
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Sleepy Nomads</a>
+
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
@@ -59,17 +63,17 @@
 
 
       <tbody>
-        <%
-        int guidesCount = (int) request.getAttribute("guidesCount");
-        for(int i = 0; i < guidesCount; i++) {
+        <% 
+        ArrayList<Guides> guides = (ArrayList<Guides>) request.getAttribute("guides");
+        for(Guides guide : guides) {
         %>
             <tr>
-                <td>${guides.get(i).getName()}</td>
-                <td>${guides.get(i).getAddress()}</td>
-                <td>${guides.get(i).getContactNo()}</td>
-                <td>${guides.get(i).getGender()}</td>
-                <td>${guides.get(i).getLocation()}</td>
-                <td>${guides.get(i).getCharge()}</td>
+                <td><%=guide.getName()%></td>
+                <td><%=guide.getAddress()%></td>
+                <td><%=guide.getContactNo()%></td>
+                <td><%=guide.getGender()%></td>
+                <td><%=guide.getLocation()%></td>
+                <td><%=guide.getCharge()%></td>
                 <td>
                 <div class="row">
                     <div class="col-lg-12">
