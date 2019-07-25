@@ -93,7 +93,7 @@ function fetchBlobstoreUrlAndShowForm() {
 			return response.text();
 		})
 		.then((imageUploadUrl) => {
-			const messageForm = document.getElementById('image-form');
+			const messageForm = document.getElementById('message-form');
 			messageForm.action = imageUploadUrl;
 		});
 

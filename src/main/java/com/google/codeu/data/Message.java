@@ -47,8 +47,17 @@ public class Message {
     this.along=along;
     this.timestamp = timestamp;
   }
+  
+    public Message(String user, String text) {
+    this(UUID.randomUUID(), user, text, System.currentTimeMillis());
+  }
 
-
+  public Message(UUID id, String user, String text, long timestamp) {
+    this.id = id;
+    this.user = user;
+    this.text = text;
+    this.timestamp = timestamp;
+  }
 
   public UUID getId() {
     return id;
