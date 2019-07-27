@@ -16,6 +16,9 @@
 
     <!-- Custom styles for this template -->
     <link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
+    
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
 
 </head>
 <style type="text/css">
@@ -25,13 +28,13 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 /****** Style Star Rating Widget *****/
 
-.rating { 
+.rating {
   border: none;
   float: left;
 }
 
-.rating > input { display: none; } 
-.rating > label:before { 
+.rating > input { display: none; }
+.rating > label:before {
   margin: 5px;
   font-size: 1.25em;
   font-family: FontAwesome;
@@ -39,14 +42,14 @@ h1 { font-size: 1.5em; margin: 10px; }
   content: "\f005";
 }
 
-.rating > .half:before { 
+.rating > .half:before {
   content: "\f089";
   position: absolute;
 }
 
-.rating > label { 
-  color: #ddd; 
- float: right; 
+.rating > label {
+  color: #ddd;
+ float: right;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/
@@ -58,7 +61,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 .rating > input:checked + label:hover, /* hover current star when changing rating */
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 </style>
 <body id="page-top" onload="addLoginOrLogoutLinkToNavigation();">
 <!-- Navigation -->
@@ -79,7 +82,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 </nav>
 <header class="masthead">
 
-        
+
     <div class="intro-text">
     <h5 > This Table is used to show the information about the guide.This contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). Development Ongoing....</h5>
    <table class="table table-dark">
@@ -97,7 +100,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 
       <tbody>
-        <% 
+        <%
         ArrayList<Guides> guides = (ArrayList<Guides>) request.getAttribute("guides");
         for(Guides guide : guides) {
         %>
