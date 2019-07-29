@@ -36,19 +36,20 @@ limitations under the License.
   <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" />
   </head>
   <body id="page-top" onload="addLoginOrLogoutLinkToNavigation();buildUI();">
+ 
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="">Sleepy Nomads</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav text-uppercase ml-auto" id="navigation">
-        </ul>
-      </div>
+        <a class="navbar-brand js-scroll-trigger" href="">Sleepy Nomads</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto" id="navigation">
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
   
   <header class="masthead">
     <div class="container">
@@ -58,38 +59,34 @@ limitations under the License.
     </div>
   </header>
   
-  <section class="page-section" id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <form id="message-form" method="POST" enctype="multipart/form-data">
-			<textarea name="text" id="message-input" onkeyup="checkInput() "></textarea>
-			</br>
-			</br>
-
-			<input type="hidden" name="alat"  id="lat"/>
-			<input type="hidden" name="along"  id="long"/>
+	<section class="page-section" id="contact">
+		<div class="container">
 			<div class="row">
-				<label for="autocomplete_search"style="color: white">Place:  </label>
-				<input type="text" name="autocomplete_search" id="autocomplete_search" >
-			</div>
-			<br/>
-			
-			<div class="upload-btn-wrapper">
-				<input id="file" type="file" name="image" multiple>
-				<button>Photo</button>
-			</div>
+				<div class="col-lg-12">
+					<form id="message-form" method="POST" enctype="multipart/form-data">
+					<textarea name="text" id="text" onkeyup="checkInput()" placeholder ="Post Something here!"></textarea>
+					</br>
+					</br>
+					<input type="hidden" name="alat"  id="lat"/>
+					<input type="hidden" name="along"  id="long"/>
+					<div class="row">
+						<label for="autocomplete_search"style="color: white">Place:  </label>
+						<input type="text" name="autocomplete_search" id="autocomplete_search" >
+						<div class="upload-btn-wrapper">
+							<input id="file" type="file" name="image" multiple>
+							<button>Photo</button>
+						</div>
+						<input id="submit" name="submit" type="submit" value="Submit" disabled>
+					</div>
+					<br/>	
 
-			<input id="submit" name="submit" type="submit" value="Submit">
-          </form>
-          </br>
-          </br>
-          </br>
-          <div id="message-container">Loading...</div>
-        </div>
-      </div>
-    </div>
-  </section>
+					</form>
+					</br></br></br>
+					<div id="message-container">Loading...</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
     <script>
         function autocompleteAPI() {
@@ -168,11 +165,7 @@ limitations under the License.
     </script>
 
 
-    <script>
- $(function() {
-	 $("#message-input").wysibb();
-	 })
-</script>
+  -->
 
 <!-- <script> -->
 			<!-- (function() { -->
