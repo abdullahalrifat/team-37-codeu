@@ -25,7 +25,7 @@ if (!parameterUsername) {
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
+  document.getElementById('page-title').innerText = 'Hi, '+ parameterUsername + '!';
   document.title = parameterUsername + ' - User Page';
 }
 
@@ -43,7 +43,6 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
-		  //document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
 }
@@ -69,40 +68,21 @@ function fetchMessages() {
       });
 }
 
-
-
-/** fetches about me*/
-function fetchAboutMe(){
-  const url = '/about?user=' + parameterUsername;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
-    if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
-    }
-    
-    aboutMeContainer.innerHTML = aboutMe;
-
-  });
-}
-
 function fetchBlobstoreUrlAndShowForm() {
 	fetch('/blobstore-upload-url')
 		.then((response) => {
 			return response.text();
 		})
 		.then((imageUploadUrl) => {
-			const messageForm = document.getElementById('image-form');
+			const messageForm = document.getElementById('message-form');
 			messageForm.action = imageUploadUrl;
 		});
-
 }
 
 /** Check if Text Field is empty. */
 
 function checkInput() {
-	if(document.getElementById('message-input').value.length == 0) { 
+	if(document.getElementById('text').value.length == 0) { 
             document.getElementById('submit').disabled = true; 
         } else { 
             document.getElementById('submit').disabled = false;
@@ -149,9 +129,6 @@ function buildMessageDiv(message) {
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
-  //showMessageFormIfViewingSelf();
   fetchBlobstoreUrlAndShowForm(); 
-  //checkInput() ;
   fetchMessages();
-  //fetchAboutMe();
 }
