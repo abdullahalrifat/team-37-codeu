@@ -43,7 +43,7 @@ public class MessageServlet extends HttpServlet {
 
   @Override
   public void init() {
-    datastore = new Datastore();
+	  datastore = new Datastore();
   }
 
   /**
@@ -52,15 +52,12 @@ public class MessageServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     response.setContentType("application/json");
-
     String user = request.getParameter("user");
 
     if (user == null || user.equals("")) {
-      // Request is invalid, return empty array
-      response.getWriter().println("[]");
-      return;
+		response.getWriter().println("[]");
+		return;
     }
 
     List<Message> messages = datastore.getMessages(user);
@@ -73,52 +70,42 @@ public class MessageServlet extends HttpServlet {
   /** Stores a new {@link Message}. */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
-      response.sendRedirect("/index.html");
-      return;
+		response.sendRedirect("/index.html");
+		return;
     }
 
-     String user = userService.getCurrentUser().getEmail();
-
-	  String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-	  // TextProcessor processor = BBProcessorFactory.getInstance().create();
-	  // String input= processor.process(text ) ;
-      String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
-      double alat = Double.parseDouble(request.getParameter("alat"));
-      double along = Double.parseDouble(request.getParameter("along"));
-	  // Message message = new Message(user, input,city,alat,along);
-	  Message message = new Message(user, text,city,alat,along);
-	  datastore.storeMessage(message);
-
-
+	String user = userService.getCurrentUser().getEmail();
+	String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+	String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
+	double alat = Double.parseDouble(request.getParameter("alat"));
+	double along = Double.parseDouble(request.getParameter("along"));
+	
+	Message message = new Message(user, text,city,alat,along);
+	datastore.storeMessage(message);
     response.sendRedirect("/user-page.html?user=" + user);
   }
 
   public String replaceUserText(String userText) {
-
 	String regex =  new String();
 	String replacement = new String();
 
 	// youtube videos. validity is checked in the regex
-
 	if (userText.contains("youtube")) {
 		regex = "(http)(s?:\\/\\/www\\.youtube\\.com\\/watch\\?v=)([a-zA-Z0-9]+)";
 		replacement = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/$3\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
 	}
 
 	// images and gifs
-
 	else {
 		regex = "(\\!\\[([A-Za-z0-9]+[.?!,\"\'A-Za-z0-9\\s]*)\\])?(https?://[a-zA-Z0-9]+\\S*\\.(png|jpg|gif|jpeg|svg))";
 		replacement = "<figure><img src=\"$3\"><figcaption>$2</figcaption></figure>";
 	}
-
 	return userText.replaceAll(regex, replacement);
-}
+  }
+	
   // public boolean urlValidator (String url) {
-
 	 // UrlValidator urlValidator = new UrlValidator();
 	 // return urlValidator.isValid(url);
   // }
