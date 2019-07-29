@@ -48,7 +48,7 @@ public class Message {
     this.timestamp = timestamp;
   }
   
-    public Message(String user, String text) {
+  public Message(String user, String text) {
     this(UUID.randomUUID(), user, text, System.currentTimeMillis());
   }
 
