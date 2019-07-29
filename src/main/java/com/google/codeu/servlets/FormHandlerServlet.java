@@ -62,24 +62,12 @@ public class FormHandlerServlet extends HttpServlet {
       return;
     }
 	
-	String user = userService.getCurrentUser().getEmail();
-	// String userMessage = request.getParameter("message");
-	
-	  String userMessage = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-	  // TextProcessor processor = BBProcessorFactory.getInstance().create();
-	  // String input= processor.process(text ) ;
-      String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
-      double alat = Double.parseDouble(request.getParameter("alat"));
-      double along = Double.parseDouble(request.getParameter("along"));
-	  // Message message = new Message(user, input,city,alat,along);
-	
-
-
-    // // Get the URL of the image that the user uploaded to Blobstore.
+    String user = userService.getCurrentUser().getEmail();
+    String userMessage = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
+    double alat = Double.parseDouble(request.getParameter("alat"));
+    double along = Double.parseDouble(request.getParameter("along"));
     List <String> imageUrls = getUploadedFileUrl(request, "image");
-	//for (String imageUrl: imageUrls) {System.out.println(imageUrl);}
-		
-		// System.out.println(userMessage);
 		
 	if (imageUrls != null) {
 		userMessage = userMessage + "<br/>";
@@ -89,12 +77,7 @@ public class FormHandlerServlet extends HttpServlet {
 		}
 	}
 	
-	// System.out.println(userMessage);
-	
-	// Message message = new Message(user, userMessage);
-	
 	Message message = new Message(user, userMessage,city,alat,along);
-	
 	datastore.storeMessage(message);
 	response.sendRedirect("/user-page.html?user=" + user);
   }
@@ -106,33 +89,27 @@ public class FormHandlerServlet extends HttpServlet {
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get("image");
-	List<String> imageUrls = new ArrayList <String>();
-	int v = 0;
+    List<String> imageUrls = new ArrayList <String>();
+    int v = 0;
 	
 	// User submitted form without selecting a file, so we can't get a URL. (devserver)
-    if(blobKeys == null || blobKeys.isEmpty()) {
-      return null;
-    }
+    if(blobKeys == null || blobKeys.isEmpty())
+		return null;
 
-	//blobs.forEach((k,v)-> {
 	for (String k: blobs.keySet()) {
-		 System.out.println("Key : " + k + " Val : " + blobs.get(k));
-		 System.out.println("Length of  List<BlobKey> blobKeys: " + blobKeys.size());
-		 
-		 for (BlobKey blobKey: blobKeys)	{
-			 System.out.println(blobKey);
-			 
+		System.out.println("Key : " + k + " Val : " + blobs.get(k));
+		System.out.println("Length of  List<BlobKey> blobKeys: " + blobKeys.size());
+
+		for (BlobKey blobKey: blobKeys)	{
 			BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
 			if (blobInfo.getSize() == 0) {
 			  blobstoreService.delete(blobKey);
 			  v = 1;
 			  break;
 			}
-			
+
 			ImagesService imagesService = ImagesServiceFactory.getImagesService();
 			ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-			
-			System.out.println(imagesService.getServingUrl(options));
 			imageUrls.add(imagesService.getServingUrl(options));
 		}
 	}
