@@ -30,9 +30,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Sleepy Nomads</a>
-
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
@@ -43,58 +41,52 @@
         </div>
     </div>
 </nav>
+    
 <header class="masthead">
-
-        
     <div class="intro-text">
-<!--    <h5 > This Table is used to show the information about the guide.This contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). Development Ongoing....</h5>-->
-   <table class="table table-dark">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Address</th>
-          <th scope="col">Contact No</th>
-          <th scope="col">Gender</th>
-          <th scope="col">Location</th>
-          <th scope="col">Charge</th>
-          <th scope="col">Rate</th>
-        </tr>
-      </thead>
-
-
-      <tbody>
-        <% 
-        ArrayList<Guides> guides = (ArrayList<Guides>) request.getAttribute("guides");
-        for(Guides guide : guides) {
-        %>
-            <tr>
-                <td><%=guide.getName()%></td>
-                <td><%=guide.getAddress()%></td>
-                <td><%=guide.getContactNo()%></td>
-                <td><%=guide.getGender()%></td>
-                <td><%=guide.getLocation()%></td>
-                <td><%=guide.getCharge()%></td>
-                <td>
-                <div class="row">
-                    <div class="col-lg-12">
-                      <div class="star-rating">
-                        <span class="fa fa-star-o" data-rating="1"></span>
-                        <span class="fa fa-star-o" data-rating="2"></span>
-                        <span class="fa fa-star-o" data-rating="3"></span>
-                        <span class="fa fa-star-o" data-rating="4"></span>
-                        <span class="fa fa-star-o" data-rating="5"></span>
-                        <input type="hidden" name="whatever1" class="rating-value" value="5">
-                      </div>
-                    </div>
-                </div>
-              </td>
-            </tr>
-        <% } %>
-      </tbody>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Contact No</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Charge</th>
+                    <th scope="col">Rate</th>
+                </tr>
+			</thead>
+			<tbody>
+				<% 
+				ArrayList<Guides> guides = (ArrayList<Guides>) request.getAttribute("guides");
+				for(Guides guide : guides) {
+					%>
+					<tr>
+						<td><%=guide.getName()%></td>
+						<td><%=guide.getAddress()%></td>
+						<td><%=guide.getContactNo()%></td>
+						<td><%=guide.getGender()%></td>
+						<td><%=guide.getLocation()%></td>
+						<td><%=guide.getCharge()%></td>
+						<td>
+							<div class="row">
+								<div class="col-lg-12">
+								<div class="star-rating">
+										<span class="fa fa-star-o" data-rating="1"></span>
+										<span class="fa fa-star-o" data-rating="2"></span>
+										<span class="fa fa-star-o" data-rating="3"></span>
+										<span class="fa fa-star-o" data-rating="4"></span>
+										<span class="fa fa-star-o" data-rating="5"></span>
+										<input type="hidden" name="whatever1" class="rating-value" value="5">
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				<% } %>
+			</tbody>
     </table>
  </div>
-
-
 </header>
 
 <!-- Footer -->
@@ -137,33 +129,28 @@
     </div>
 </footer>
 
-    <script src="./js/navigation-loader.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="./js/navigation-loader.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript">
+	var $star_rating = $('.star-rating .fa');
+	var SetRatingStar = function() {
+		return $star_rating.each(function() {
+			if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+				return $(this).removeClass('fa-star-o').addClass('fa-star');
+			} else {
+				return $(this).removeClass('fa-star').addClass('fa-star-o');
+			}
+		});
+	};
 
-    <script type="text/javascript">
+	$star_rating.on('click', function() {
+		$star_rating.siblings('input.rating-value').val($(this).data('rating'));
+		return SetRatingStar();
+	});
 
-        var $star_rating = $('.star-rating .fa');
-
-        var SetRatingStar = function() {
-          return $star_rating.each(function() {
-            if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
-              return $(this).removeClass('fa-star-o').addClass('fa-star');
-            } else {
-              return $(this).removeClass('fa-star').addClass('fa-star-o');
-            }
-          });
-        };
-
-        $star_rating.on('click', function() {
-          $star_rating.siblings('input.rating-value').val($(this).data('rating'));
-          return SetRatingStar();
-        });
-
-        SetRatingStar();
-        $(document).ready(function() {
-
-        });
-    </script>
+	SetRatingStar();
+	$(document).ready(function() { });
+</script>
 
 </body>
 </html>
