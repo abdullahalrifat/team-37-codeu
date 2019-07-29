@@ -22,6 +22,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 /**
  * When the user submits the form, Blobstore processes the file upload
@@ -61,20 +63,37 @@ public class FormHandlerServlet extends HttpServlet {
     }
 	
 	String user = userService.getCurrentUser().getEmail();
-	String userMessage = request.getParameter("message");
+	// String userMessage = request.getParameter("message");
+	
+	  String userMessage = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+	  // TextProcessor processor = BBProcessorFactory.getInstance().create();
+	  // String input= processor.process(text ) ;
+      String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
+      double alat = Double.parseDouble(request.getParameter("alat"));
+      double along = Double.parseDouble(request.getParameter("along"));
+	  // Message message = new Message(user, input,city,alat,along);
+	
+
 
     // // Get the URL of the image that the user uploaded to Blobstore.
     List <String> imageUrls = getUploadedFileUrl(request, "image");
 	//for (String imageUrl: imageUrls) {System.out.println(imageUrl);}
-	
+		
+		// System.out.println(userMessage);
+		
 	if (imageUrls != null) {
+		userMessage = userMessage + "<br/>";
 		for (String imageUrl: imageUrls) {
-				imageUrl = "<a href=\"" + imageUrl + "\">" + "<img src=\"" + imageUrl + "\" />" + "</a>";
+				imageUrl = "<a href=\"" + imageUrl + "\">" + "<img src=\"" + imageUrl + "\"/>" + "</a>";
 				userMessage = userMessage + imageUrl;
 		}
 	}
 	
-	Message message = new Message(user, userMessage);
+	// System.out.println(userMessage);
+	
+	// Message message = new Message(user, userMessage);
+	
+	Message message = new Message(user, userMessage,city,alat,along);
 	
 	datastore.storeMessage(message);
 	response.sendRedirect("/user-page.html?user=" + user);
