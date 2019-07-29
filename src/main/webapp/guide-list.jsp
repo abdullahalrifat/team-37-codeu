@@ -47,7 +47,7 @@
 
         
     <div class="intro-text">
-    <h5 > This Table is used to show the information about the guide.This contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). Development Ongoing....</h5>
+<!--    <h5 > This Table is used to show the information about the guide.This contain the information about the guide (name, address, contact info, locations where he is available, his charge per hour for being a travel guide). Development Ongoing....</h5>-->
    <table class="table table-dark">
       <thead>
         <tr>
