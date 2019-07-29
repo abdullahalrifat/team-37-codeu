@@ -25,7 +25,7 @@ if (!parameterUsername) {
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
+  document.getElementById('page-title').innerText = 'Hi, '+ parameterUsername + '!';
   document.title = parameterUsername + ' - User Page';
 }
 
@@ -69,8 +69,6 @@ function fetchMessages() {
       });
 }
 
-
-
 /** fetches about me*/
 function fetchAboutMe(){
   const url = '/about?user=' + parameterUsername;
@@ -102,7 +100,7 @@ function fetchBlobstoreUrlAndShowForm() {
 /** Check if Text Field is empty. */
 
 function checkInput() {
-	if(document.getElementById('message-input').value.length == 0) { 
+	if(document.getElementById('text').value.length == 0) { 
             document.getElementById('submit').disabled = true; 
         } else { 
             document.getElementById('submit').disabled = false;
