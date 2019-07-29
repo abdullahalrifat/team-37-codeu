@@ -33,15 +33,19 @@ function addLoginOrLogoutLinkToNavigation() {
         if (loginStatus.isLoggedIn) {
           navigationElement.appendChild(
               createListItem(createLink(
-              '/user-page.html?user=' + loginStatus.username, 'Your Page')));
-
+              '/index.html', 'Home')));
+			  
           navigationElement.appendChild(
               createListItem(createLink(
-                '/stats.html', 'Page Stats')));
+              '/user-page.html?user=' + loginStatus.username, 'Your Page')));
 
-            navigationElement.appendChild(
-                createListItem(createLink(
-                '/community.html', 'Community')));
+          // navigationElement.appendChild(
+              // createListItem(createLink(
+                // '/stats.html', 'Page Stats')));
+
+            // navigationElement.appendChild(
+                // createListItem(createLink(
+                // '/community.html', 'Community')));
 
             navigationElement.appendChild(
                 createListItem(createLink(
@@ -51,37 +55,29 @@ function addLoginOrLogoutLinkToNavigation() {
                 createListItem(createLink(
                     '/travelMates.html', 'Mates')));
 
-            navigationElement.appendChild(
+			navigationElement.appendChild(
+                createListItem(createLink(
+                    '/chart.html', 'Trending')));
+		  
+		  navigationElement.appendChild(
+					createListItem(createLink('/guide-reg.html', 'Guide Registration')));
+
+		  navigationElement.appendChild(
+					createListItem(createLink('/guides', 'Guide List')));
+					
+		  // navigationElement.appendChild(
+					// createListItem(createLink(
+                    // '/aboutus.html', 'About')));
+
+		  navigationElement.appendChild(
+			  createListItem(createLink('/logout', 'Logout')));
+        } else {
+             navigationElement.appendChild(
                 createListItem(createLink(
                     '/aboutus.html', 'About')));
 
 			navigationElement.appendChild(
-                createListItem(createLink(
-                    '/chart.html', 'Charts')));
-      navigationElement.appendChild(
-                createListItem(createLink('/guide-reg.html', 'Guide Registration')));
-
-      navigationElement.appendChild(
-                createListItem(createLink('/guides', 'Guide List')));
-
-          navigationElement.appendChild(
-              createListItem(createLink('/logout', 'Logout')));
-        } else {
-            navigationElement.appendChild(
-                createListItem(createLink('#services', 'Services')));
-
-            navigationElement.appendChild(
-                createListItem(createLink('#team', 'Team')));
-
-            navigationElement.appendChild(
-                createListItem(createLink('#contact', 'Contact')));
-
-			navigationElement.appendChild(
-                createListItem(createLink(
-                    '/chart.html', 'Charts')));
-
-          navigationElement.appendChild(
-              createListItem(createLink('/login', 'Login')));
+			  createListItem(createLink('/login', 'Login')));
         }
       });
 }
