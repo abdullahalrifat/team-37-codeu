@@ -43,7 +43,6 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
-		  //document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
 }
@@ -69,22 +68,6 @@ function fetchMessages() {
       });
 }
 
-/** fetches about me*/
-function fetchAboutMe(){
-  const url = '/about?user=' + parameterUsername;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
-    if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
-    }
-    
-    aboutMeContainer.innerHTML = aboutMe;
-
-  });
-}
-
 function fetchBlobstoreUrlAndShowForm() {
 	fetch('/blobstore-upload-url')
 		.then((response) => {
@@ -94,7 +77,6 @@ function fetchBlobstoreUrlAndShowForm() {
 			const messageForm = document.getElementById('message-form');
 			messageForm.action = imageUploadUrl;
 		});
-
 }
 
 /** Check if Text Field is empty. */
@@ -147,9 +129,6 @@ function buildMessageDiv(message) {
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
-  //showMessageFormIfViewingSelf();
   fetchBlobstoreUrlAndShowForm(); 
-  //checkInput() ;
   fetchMessages();
-  //fetchAboutMe();
 }
