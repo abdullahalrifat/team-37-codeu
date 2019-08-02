@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.kefirsf.bb.BBProcessorFactory;
+import org.kefirsf.bb.TextProcessor;
 
 /**
  * When the user submits the form, Blobstore processes the file upload
@@ -64,20 +66,22 @@ public class FormHandlerServlet extends HttpServlet {
 	
     String user = userService.getCurrentUser().getEmail();
     String userMessage = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+    TextProcessor processor = BBProcessorFactory.getInstance().create();
+    String input= processor.process( userMessage ) ;
     String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
     double alat = Double.parseDouble(request.getParameter("alat"));
     double along = Double.parseDouble(request.getParameter("along"));
     List <String> imageUrls = getUploadedFileUrl(request, "image");
 		
 	if (imageUrls != null) {
-		userMessage = userMessage + "<br/>";
+		input = input + "<br/>";
 		for (String imageUrl: imageUrls) {
 				imageUrl = "<a href=\"" + imageUrl + "\">" + "<img src=\"" + imageUrl + "\"/>" + "</a>";
-				userMessage = userMessage + imageUrl;
+				input = input + imageUrl;
 		}
 	}
 	
-	Message message = new Message(user, userMessage,city,alat,along);
+	Message message = new Message(user, input,city,alat,along);
 	datastore.storeMessage(message);
 	response.sendRedirect("/user-page.html?user=" + user);
   }
