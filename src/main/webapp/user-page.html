@@ -37,7 +37,7 @@ limitations under the License.
 <body id="page-top" onload="addLoginOrLogoutLinkToNavigation();buildUI();">
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="">Sleepy Nomads</a>
+			<a class="navbar-brand js-scroll-trigger" href="/index.html">Sleepy Nomads</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				Menu
 				<i class="fas fa-bars"></i>
@@ -62,7 +62,7 @@ limitations under the License.
 		<div class="row">
 			<div class="col-lg-12">
 				<form id="message-form" method="POST" enctype="multipart/form-data">
-				<textarea name="text" id="text" onkeyup="checkInput()" placeholder ="Post Something here!"></textarea>
+				<textarea name="text" id="message-input" onkeyup="checkInput()" placeholder ="Post Something here!"></textarea>
 				</br></br>
 				<input type="hidden" name="alat"  id="lat"/>
 				<input type="hidden" name="along"  id="long"/>
@@ -147,6 +147,11 @@ limitations under the License.
 * The key parameter will contain your own API key (which is not needed for this tutorial)
 * The callback parameter executes the initMap() function
 -->
+ <script>
+ $(function() {
+	 $("#message-input").wysibb();
+	 })
+</script>
 <script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI">
 </script>
