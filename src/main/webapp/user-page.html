@@ -14,67 +14,82 @@ limitations under the License.
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-  <title>CodeU 2019 Starter Project</title>
+	<title>CodeU 2019 Starter Project</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="./boostrap/landing-page/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap core CSS -->
+	<link href="./boostrap/landing-page/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
-  <link href="./css/timeline.css" rel="stylesheet">
-  <link href="./css/user-page.css" rel="stylesheet">
-  <script src="./js/navigation-loader.js"></script>
-  <script src="./js/user-page-loader.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
-  <link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" />
+	<!-- Custom styles for this template -->
+	<link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
+	<link href="./css/timeline.css" rel="stylesheet">
+	<link href="./css/user-page.css" rel="stylesheet">
+	<script src="./js/navigation-loader.js"></script>
+	<script src="./js/user-page-loader.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
+
+	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+		  rel = "stylesheet">
+	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+
+	<link rel="stylesheet" href="//cdn.wysibb.com/css/default/wbbtheme.css" />
 </head>
 <body id="page-top" onload="addLoginOrLogoutLinkToNavigation();buildUI();">
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="/index.html">Sleepy Nomads</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				Menu
-				<i class="fas fa-bars"></i>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ml-auto" id="navigation">
-				</ul>
-			</div>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+	<div class="container">
+		<a class="navbar-brand js-scroll-trigger" href="/index.html">Sleepy Nomads</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			Menu
+			<i class="fas fa-bars"></i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav text-uppercase ml-auto" id="navigation">
+			</ul>
 		</div>
-	</nav>
-  
-  <header class="masthead">
-    <div class="container">
-      <div class="intro-text">
-        <h1 id="page-title">User Page</h1>
-      </div>
-    </div>
-  </header>
-  
+	</div>
+</nav>
+
+<header class="masthead">
+	<div class="container">
+		<div class="intro-text">
+			<h1 id="page-title">User Page</h1>
+		</div>
+	</div>
+</header>
+<script>
+	$( "#timestamp" ).datepicker();
+</script>
 <section class="page-section" id="contact">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12">
+			<input class="col-lg-12">
 				<form id="message-form" method="POST" enctype="multipart/form-data">
-				<textarea name="text" id="message-input" onkeyup="checkInput()" placeholder ="Post Something here!"></textarea>
-				</br></br>
-				<input type="hidden" name="alat"  id="lat"/>
-				<input type="hidden" name="along"  id="long"/>
-				<div class="row">
-					<label for="autocomplete_search"style="color: white">Place:  </label>
-					<input type="text" name="autocomplete_search" id="autocomplete_search" >
-					<div class="upload-btn-wrapper">
-						<input id="file" type="file" name="image" multiple>
-						<button>Photo</button>
+					<textarea name="text" id="message-input" onkeyup="checkInput()" placeholder ="Post Something here!"></textarea>
+					</br></br>
+					<input type="hidden" name="alat"  id="lat"/>
+					<input type="hidden" name="along"  id="long"/>
+					<div class="row">
+						<label for="autocomplete_search"style="color: white">Place:  </label>
+						<input type="text" name="autocomplete_search" id="autocomplete_search" >
+						<div class="upload-btn-wrapper">
+							<input id="file" type="file" name="image" multiple>
+							<button>Photo</button>
+						</div>
+
+
+
 					</div>
+					<input type="hidden" id="time" name="time" />
+					<p style="color:white;">Enter Date: <input type = "text" id = "timestamp" name="timestamp"></p>
 					<input id="submit" name="submit" type="submit" value="Submit">
-				</div>
 				</form>
 				</br></br></br>
 				<div id="message-container">Loading...</div>
@@ -111,38 +126,38 @@ limitations under the License.
 		var currentLong = position.coords.longitude;
 		document.getElementById('lat').value=currentLat;
 		document.getElementById('long').value=currentLong;
-        displayLocation(currentLat,currentLong);
+		displayLocation(currentLat,currentLong);
 	}
-    function displayLocation(latitude,longitude){
-      var geocoder;
-      geocoder = new google.maps.Geocoder();
-      var latlng = new google.maps.LatLng(latitude, longitude);
+	function displayLocation(latitude,longitude){
+		var geocoder;
+		geocoder = new google.maps.Geocoder();
+		var latlng = new google.maps.LatLng(latitude, longitude);
 
-      geocoder.geocode(
-              {'latLng': latlng},
-              function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                  if (results[0]) {
-                    var add= results[0].formatted_address ;
-                    var  value=add.split(",");
+		geocoder.geocode(
+				{'latLng': latlng},
+				function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						if (results[0]) {
+							var add= results[0].formatted_address ;
+							var  value=add.split(",");
 
-                    count=value.length;
-                    //country=value[count-1];
-                    //state=value[count-2];
-                    city=value[1];
-                    //x.innerHTML = "city name is: " + city;
-                    document.getElementById('autocomplete_search').value=city;
-                  }
-                  else  {
-                    //x.innerHTML = "address not found";
-                  }
-                }
-                else {
-                  //x.innerHTML = "Geocoder failed due to: " + status;
-                }
-              }
-      );
-    }
+							count=value.length;
+							//country=value[count-1];
+							//state=value[count-2];
+							city=value[1];
+							//x.innerHTML = "city name is: " + city;
+							document.getElementById('autocomplete_search').value=city;
+						}
+						else  {
+							//x.innerHTML = "address not found";
+						}
+					}
+					else {
+						//x.innerHTML = "Geocoder failed due to: " + status;
+					}
+				}
+		);
+	}
 	/*function codeLatLng(lat, lng) {
 
 		var latlng = new google.maps.LatLng(lat, lng);
@@ -184,10 +199,10 @@ limitations under the License.
 * The key parameter will contain your own API key (which is not needed for this tutorial)
 * The callback parameter executes the initMap() function
 -->
- <script>
- $(function() {
-	 $("#message-input").wysibb();
-	 })
+<script>
+	$(function() {
+		$("#message-input").wysibb();
+	})
 </script>
 <script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz6todnWCz5_fWRg8SxTNJHtCCdbZnNUg&libraries=places&callback=autocompleteAPI">
