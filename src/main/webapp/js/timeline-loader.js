@@ -95,6 +95,7 @@ function buildMessageDiv(message) {
         '                                <span class="qa-message-who">\n' +
         '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-pad">by </span>\n' +
         '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=admin">'+message.user +'</a></span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-data"><a href="">'+message.city +'</a></span>\n' +
         '\t\t\t\t\t\t\t\t\t\t\t</span>\n' +
         '                            </div>\n' +
         '                        </div>\n' +

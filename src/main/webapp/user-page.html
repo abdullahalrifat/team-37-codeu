@@ -73,7 +73,7 @@ limitations under the License.
 						<input id="file" type="file" name="image" multiple>
 						<button>Photo</button>
 					</div>
-					<input id="submit" name="submit" type="submit" value="Submit" disabled>
+					<input id="submit" name="submit" type="submit" value="Submit">
 				</div>
 				</form>
 				</br></br></br>
@@ -90,8 +90,9 @@ limitations under the License.
 		getLocation();
 		autocomplete.addListener('place_changed', function () {
 			var place = autocomplete.getPlace();
-			document.getElementById('lat').value=place.geometry['autocomplete_search'].lat();
-			document.getElementById('long').value=place.geometry['autocomplete_search'].lng();
+			//alert(place);
+			document.getElementById('lat').value= place.geometry.location.lat();
+			document.getElementById('long').value=place.geometry.location.lng();
 		});
 	}
 </script>
@@ -106,32 +107,66 @@ limitations under the License.
 	}
 	function showPosition(position) {
 		var currentLat = position.coords.latitude;
+		//alert(currentLat);
 		var currentLong = position.coords.longitude;
 		document.getElementById('lat').value=currentLat;
 		document.getElementById('long').value=currentLong;
-		codeLatLng(currentLat,currentLong);
+        displayLocation(currentLat,currentLong);
 	}
-	function codeLatLng(lat, lng) {
+    function displayLocation(latitude,longitude){
+      var geocoder;
+      geocoder = new google.maps.Geocoder();
+      var latlng = new google.maps.LatLng(latitude, longitude);
+
+      geocoder.geocode(
+              {'latLng': latlng},
+              function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                  if (results[0]) {
+                    var add= results[0].formatted_address ;
+                    var  value=add.split(",");
+
+                    count=value.length;
+                    country=value[count-1];
+                    state=value[count-2];
+                    city=value[count-3];
+                    //x.innerHTML = "city name is: " + city;
+                    document.getElementById('autocomplete_search').value=city;
+                  }
+                  else  {
+                    //x.innerHTML = "address not found";
+                  }
+                }
+                else {
+                  //x.innerHTML = "Geocoder failed due to: " + status;
+                }
+              }
+      );
+    }
+	/*function codeLatLng(lat, lng) {
 
 		var latlng = new google.maps.LatLng(lat, lng);
 		geocoder = new google.maps.Geocoder();
 
 		geocoder.geocode({'latLng': latlng}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				console.log(results)
+				console.log(results);
 				if (results[1]) {
+				  let city;
 					for (var i=0; i<results[0].address_components.length; i++) {
 						for (var b=0;b<results[0].address_components[i].types.length;b++) {
 							//there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
 							if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
 								//this is the object you are looking for
 								city= results[0].address_components[i];
+								alert(city);
 								break;
 							}
 						}
 					}
 					//city data
-					document.getElementById('autocomplete_search').value=city.short_name;
+					//
+                  // document.getElementById('autocomplete_search').value=city.short_name;
 				} else {
 					//alert("No results found");
 				}
@@ -140,6 +175,8 @@ limitations under the License.
 			}
 		});
 	}
+
+	 */
 </script>
 
 <!--Load the API from the specified URL
