@@ -78,6 +78,17 @@ function buildMessageDiv(message) {
     messageDiv.appendChild(headerDiv);
     messageDiv.appendChild(bodyDiv);
     */
+    let currentTime = new Date();
+    let messageTime = new Date(message.timestamp);
+    let messageText;
+    if(currentTime >= messageTime)
+    {
+        messageText = "Visited at";
+    }
+    else if(currentTime <= messageTime)
+    {
+        messageText = "Will be Visiting To";
+    }
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('qa-message-list');
     messageDiv.innerHTML = ' <div class="message-item" id="m1">\n' +
@@ -95,6 +106,8 @@ function buildMessageDiv(message) {
         '                                <span class="qa-message-who">\n' +
         '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-pad">by </span>\n' +
         '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=admin">'+message.user +'</a></span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t</span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-pad">'+messageText+'</span>\n' +
         '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-data"><a href="">'+message.city +'</a></span>\n' +
         '\t\t\t\t\t\t\t\t\t\t\t</span>\n' +
         '                            </div>\n' +
@@ -102,7 +115,7 @@ function buildMessageDiv(message) {
         '                    </div>\n' +
         '                </div>\n' +
         '                <div class="qa-message-content">\n' +
-         message.text+
+        message.text+
         '                </div>\n' +
         '            </div></div>';
     return messageDiv;
