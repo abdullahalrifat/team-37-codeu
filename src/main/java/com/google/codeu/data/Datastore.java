@@ -113,6 +113,37 @@ public class Datastore {
     }
     return messages;
   }
+  
+    public List<Message> search(String keyword) {
+	  List<Message> messages = new ArrayList<>();
+	  Query query =
+		  new Query("Message")
+			  //.setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+			   .addSort("timestamp", SortDirection.DESCENDING);
+	   PreparedQuery results = datastore.prepare(query);
+	   for (Entity entity : results.asIterable()) {
+		  try {
+			String text = (String) entity.getProperty("text");
+			if (text.contains(keyword))  {
+				String idString = entity.getKey().getName();
+				UUID id = UUID.fromString(idString);
+				String user = (String) entity.getProperty("user");
+				String city = (String) entity.getProperty("city");
+				double alat = (Double) entity.getProperty("alat");
+				double along = (Double) entity.getProperty("along");
+				long timestamp = (long) entity.getProperty("timestamp");
+				Message message = new Message(id, user, text,city,alat,along, timestamp);
+				messages.add(message);
+			}
+		  } catch (Exception e) {
+			System.err.println("Error getting results.");
+			System.err.println(entity.toString());
+			e.printStackTrace();
+		  }
+    }
+    return messages;
+  }
+  
     /**
      * Gets specific mate details
      *

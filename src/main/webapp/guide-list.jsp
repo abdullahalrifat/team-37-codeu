@@ -13,7 +13,9 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link href="./css/search.css" rel="stylesheet">
+	
     <!-- Custom styles for this template -->
     <link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
 
@@ -38,6 +40,12 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto" id="navigation">
             </ul>
+			<ul>
+				<form action="/search" class="searchBox" method = "POST">
+					<input class="searchInput" type="search" id="keyword" name = "keyword">
+					<i class="fa fa-search"></i>
+				</form>
+			</ul>
         </div>
     </div>
 </nav>

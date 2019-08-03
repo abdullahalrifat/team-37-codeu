@@ -86,7 +86,7 @@ public class FormHandlerServlet extends HttpServlet {
       Message message = null;
       message = new Message(user, input,city,alat,along,timestamp);
       datastore.storeMessage(message);
-	response.sendRedirect("/user-page.html?user=" + user);
+	  response.sendRedirect("/user-page.html?user=" + user);
   }
 
   /**
