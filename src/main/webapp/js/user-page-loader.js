@@ -102,7 +102,7 @@ function buildMessageDiv(message) {
     let currentTime = new Date();
     let messageTime = new Date(message.timestamp);
     let messageText;
-    if(currentTime > messageTime)
+    if(currentTime >= messageTime)
     {
         messageText = "Visited at";
     }
