@@ -28,6 +28,7 @@ limitations under the License.
 	<link href="./boostrap/landing-page/css/agency.min.css" rel="stylesheet">
 	<link href="./css/timeline.css" rel="stylesheet">
 	<link href="./css/user-page.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<script src="./js/navigation-loader.js"></script>
 	<script src="./js/user-page-loader.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -35,7 +36,7 @@ limitations under the License.
 
 	<!-- timepiker -->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
@@ -53,6 +54,13 @@ limitations under the License.
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav text-uppercase ml-auto" id="navigation">
+			</ul>
+			<ul>
+				<form action="" id="searchBox" class="searchBox" >
+					<input class="searchInput" type="search">
+					<i class="fa fa-search"></i>
+
+				</form>
 			</ul>
 		</div>
 	</div>
@@ -82,7 +90,7 @@ limitations under the License.
 			var today = new Date(document.getElementById("timestamp").value);
 			//alert(today.getTime());
 			var today_timestamps = today.getTime();
-			alert(today_timestamps);
+			//alert(today_timestamps);
 			document.getElementById("time").value=today_timestamps;
 		});
 
@@ -102,7 +110,7 @@ limitations under the License.
 		<div class="row">
 			<div class="col-lg-12">
 				<form id="message-form" method="POST" enctype="multipart/form-data">
-					<textarea name="text" id="message-input" onkeyup="checkInput()" placeholder ="Post Something here!"></textarea>
+					<textarea name="text" id="message-input"   placeholder ="Post Something here!"></textarea>
 					</br></br>
 					<input type="hidden" name="alat"  id="lat"/>
 					<input type="hidden" name="along"  id="long"/>
