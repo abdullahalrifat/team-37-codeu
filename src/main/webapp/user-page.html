@@ -33,10 +33,11 @@ limitations under the License.
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="//cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
 
-	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-		  rel = "stylesheet">
-	<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<!-- timepiker -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 
 
@@ -65,12 +66,41 @@ limitations under the License.
 	</div>
 </header>
 <script>
-	$( "#timestamp" ).datepicker();
+
+
+	//alert(today_timestamps);
+	$(function() {
+		//var today = new Date();
+		//document.getElementById("timestamp").value=today;
+		$( "#timestamp" ).datepicker({
+			onSelect: function() {
+				$(this).change();
+			}
+		});
+		$('#timestamp').on('change', function() {
+			//alert('Element ' + this.name + 'clicked');
+			var today = new Date(document.getElementById("timestamp").value);
+			//alert(today.getTime());
+			var today_timestamps = today.getTime();
+			alert(today_timestamps);
+			document.getElementById("time").value=today_timestamps;
+		});
+
+		//$( "#timestamp" ).datepicker();
+		var today = new Date();
+		//alert(today.getTime());
+		var today_timestamps = today.getTime();
+		//alert(today_timestamps);
+		document.getElementById("time").value=today_timestamps;
+	});
+
+
+
 </script>
 <section class="page-section" id="contact">
 	<div class="container">
 		<div class="row">
-			<input class="col-lg-12">
+			<div class="col-lg-12">
 				<form id="message-form" method="POST" enctype="multipart/form-data">
 					<textarea name="text" id="message-input" onkeyup="checkInput()" placeholder ="Post Something here!"></textarea>
 					</br></br>
