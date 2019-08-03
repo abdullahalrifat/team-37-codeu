@@ -22,6 +22,7 @@ import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
@@ -84,9 +85,14 @@ public class MessageServlet extends HttpServlet {
 	String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
 	double alat = Double.parseDouble(request.getParameter("alat"));
 	double along = Double.parseDouble(request.getParameter("along"));
-	
-	Message message = new Message(user,input,city,alat,along);
-	datastore.storeMessage(message);
+
+      Message message = null;
+      try {
+          message = new Message(user,input,city,alat,along);
+      } catch (ParseException e) {
+          e.printStackTrace();
+      }
+      datastore.storeMessage(message);
     response.sendRedirect("/user-page.html?user=" + user);
   }
 

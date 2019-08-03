@@ -16,6 +16,12 @@
 
 package com.google.codeu.data;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Date;
 import java.util.UUID;
 import java.util.Set;
 
@@ -34,20 +40,7 @@ public class Message {
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
-  public Message(String user, String text,String city,double alat,double along) {
-    this(UUID.randomUUID(), user, text,city,alat,along, System.currentTimeMillis());
-  }
 
-  public Message(UUID id, String user, String text,String city,double alat,double along, long timestamp) {
-    this.id = id;
-    this.user = user;
-    this.text = text;
-    this.city=city;
-    this.alat=alat;
-    this.along=along;
-    this.timestamp = timestamp;
-  }
-  
   public Message(String user, String text) {
     this(UUID.randomUUID(), user, text, System.currentTimeMillis());
   }
@@ -58,6 +51,36 @@ public class Message {
     this.text = text;
     this.timestamp = timestamp;
   }
+  public Message(String user, String text,String city,double alat,double along) throws ParseException {
+    this(UUID.randomUUID(), user, text,city,alat,along, System.currentTimeMillis());
+  }
+
+  public Message(String user, String text,String city,double alat,double along, long timestamp){
+    this.id = UUID.randomUUID();
+    this.user = user;
+    this.text = text;
+    this.city=city;
+    this.alat=alat;
+    this.along=along;
+    this.timestamp = timestamp;
+  }
+
+
+  public Message(UUID id, String user, String text,String city,double alat,double along, long  timestamp) throws ParseException {
+    this.id = id;
+    this.user = user;
+    this.text = text;
+    this.city=city;
+    this.alat=alat;
+    this.along=along;
+    this.timestamp = timestamp;
+  }
+
+
+  
+
+
+
 
   public UUID getId() {
     return id;

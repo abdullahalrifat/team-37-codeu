@@ -13,80 +13,80 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-   
+
 // Get ?user=XYZ parameter value
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
 if (!parameterUsername) {
-  window.location.replace('/');
+    window.location.replace('/');
 }
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
-  document.getElementById('page-title').innerText = 'Hi, '+ parameterUsername + '!';
-  document.title = parameterUsername + ' - User Page';
+    document.getElementById('page-title').innerText = 'Hi, '+ parameterUsername + '!';
+    document.title = parameterUsername + ' - User Page';
 }
 
 /**
  * Shows the message form if the user is logged in and viewing their own page.
  */
- 
+
 function showMessageFormIfViewingSelf() {
-  fetch('/login-status')
-      .then((response) => {
-        return response.json();
-      })
-      .then((loginStatus) => {
-        if (loginStatus.isLoggedIn &&
-            loginStatus.username == parameterUsername) {
-          const messageForm = document.getElementById('message-form');
-          messageForm.classList.remove('hidden');
-        }
-      });
+    fetch('/login-status')
+        .then((response) => {
+            return response.json();
+        })
+        .then((loginStatus) => {
+            if (loginStatus.isLoggedIn &&
+                loginStatus.username == parameterUsername) {
+                const messageForm = document.getElementById('message-form');
+                messageForm.classList.remove('hidden');
+            }
+        });
 }
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
-  const url = '/messages?user=' + parameterUsername;
-  fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((messages) => {
-        const messagesContainer = document.getElementById('message-container');
-        if (messages.length == 0) {
-          messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-        } else {
-          messagesContainer.innerHTML = '';
-        }
-        messages.forEach((message) => {
-          const messageDiv = buildMessageDiv(message);
-          messagesContainer.appendChild(messageDiv);
+    const url = '/messages?user=' + parameterUsername;
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((messages) => {
+            const messagesContainer = document.getElementById('message-container');
+            if (messages.length == 0) {
+                messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
+            } else {
+                messagesContainer.innerHTML = '';
+            }
+            messages.forEach((message) => {
+                const messageDiv = buildMessageDiv(message);
+                messagesContainer.appendChild(messageDiv);
+            });
         });
-      });
 }
 
 function fetchBlobstoreUrlAndShowForm() {
-	fetch('/blobstore-upload-url')
-		.then((response) => {
-			return response.text();
-		})
-		.then((imageUploadUrl) => {
-			const messageForm = document.getElementById('message-form');
-			messageForm.action = imageUploadUrl;
-		});
+    fetch('/blobstore-upload-url')
+        .then((response) => {
+            return response.text();
+        })
+        .then((imageUploadUrl) => {
+            const messageForm = document.getElementById('message-form');
+            messageForm.action = imageUploadUrl;
+        });
 }
 
 /** Check if Text Field is empty. */
 
 function checkInput() {
-	if(document.getElementById('text').value.length == 0) { 
-            document.getElementById('submit').disabled = true; 
-        } else { 
-            document.getElementById('submit').disabled = false;
-        }
+    if(document.getElementById('text').value.length == 0) {
+        document.getElementById('submit').disabled = true;
+    } else {
+        document.getElementById('submit').disabled = false;
+    }
 }
 
 
@@ -95,10 +95,21 @@ function checkInput() {
  * @param {Message} message
  * @return {Element}
  */
- 
+
 function buildMessageDiv(message) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('qa-message-list');
+    let currentTime = new Date();
+    let messageTime = new Date(message.timestamp);
+    let messageText;
+    if(currentTime > messageTime)
+    {
+        messageText = "Visited at";
+    }
+    else if(currentTime <= messageTime)
+    {
+        messageText = "Will be Visiting To";
+    }
     messageDiv.innerHTML = ' <div class="message-item" id="m1">\n' +
         '            <div class="message-inner">\n' +
         '                <div class="message-head clearfix">\n' +
@@ -115,6 +126,9 @@ function buildMessageDiv(message) {
         '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-pad">by </span>\n' +
         '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=admin">'+message.user +'</a></span>\n' +
         '\t\t\t\t\t\t\t\t\t\t\t</span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-pad">'+messageText+'</span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t\t<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=admin">'+message.city +'</a></span>\n' +
+        '\t\t\t\t\t\t\t\t\t\t\t</span>\n' +
         '                            </div>\n' +
         '                        </div>\n' +
         '                    </div>\n' +
@@ -123,12 +137,13 @@ function buildMessageDiv(message) {
         message.text+
         '                </div>\n' +
         '            </div></div>';
-  return messageDiv;
+    return messageDiv;
 }
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
-  setPageTitle();
-  fetchBlobstoreUrlAndShowForm(); 
-  fetchMessages();
+    setPageTitle();
+    fetchBlobstoreUrlAndShowForm();
+    fetchMessages();
 }
+

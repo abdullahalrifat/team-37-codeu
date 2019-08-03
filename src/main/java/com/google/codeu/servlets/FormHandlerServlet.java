@@ -14,6 +14,7 @@ import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,7 @@ public class FormHandlerServlet extends HttpServlet {
     String input= processor.process( userMessage ) ;
     String city = Jsoup.clean(request.getParameter("autocomplete_search"), Whitelist.none());
     double alat = Double.parseDouble(request.getParameter("alat"));
+    long timestamp = Long.parseLong(request.getParameter("time"));
     double along = Double.parseDouble(request.getParameter("along"));
     List <String> imageUrls = getUploadedFileUrl(request, "image");
 		
@@ -80,9 +82,10 @@ public class FormHandlerServlet extends HttpServlet {
 				input = input + imageUrl;
 		}
 	}
-	
-	Message message = new Message(user, input,city,alat,along);
-	datastore.storeMessage(message);
+      System.out.println(timestamp);
+      Message message = null;
+      message = new Message(user, input,city,alat,along,timestamp);
+      datastore.storeMessage(message);
 	response.sendRedirect("/user-page.html?user=" + user);
   }
 
